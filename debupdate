@@ -1,0 +1,10 @@
+#!/bin/bash
+sudo apt get install speedtest-cli
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+uname -a && sleep 1
+last -10 && sleep 1
+who -a && sleep 1
+speedtest --secure
+echo "byah";
