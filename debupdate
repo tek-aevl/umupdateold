@@ -1,11 +1,11 @@
 #!/bin/bash
-echo "Welcome " $USER "@" $HOSTNAME
+echo "Welcome " $USER "@" $HOSTNAME && sleep
 sudo apt install speedtest-cli
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
-uname -a && sleep 1
-last -10 && sleep 1
-who -a && sleep 1
-speedtest --secure
+echo ":~$ uname"  && uname -a && sleep 
+echo ":~$ last"   && last -10 && sleep 1
+echo ":~$ who -a" && who -a && sleep 1
+echo ":~$ speedtest" && speedtest --secure
 echo "byah";
