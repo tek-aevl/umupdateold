@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Welcome " $USER "@" $HOSTNAME
 sudo apt get install speedtest-cli
 sudo apt update
 sudo apt upgrade
