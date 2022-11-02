@@ -8,5 +8,5 @@ echo ":~$ uname"  && uname -a && sleep 1
 echo ":~$ last"   && last -10 && sleep 1
 echo ":~$ who -a" && who -a && sleep 1
 echo ":~$ speedtest" && speedtest --secure
-inxi && uname -a && who -a
+inxi
 echo "byah";
