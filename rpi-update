@@ -1,0 +1,25 @@
+echo "Welcome " $USER
+inxi
+speedtest --secure
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+# output current pihole db size
+sudo du /etc/pihole/pihole-FTL.db -h
+# flush pihole logs
+pihole flush
+# stop pihole FTL service
+sudo systemctl stop pihole-FTL
+# delete the FTL database file
+sudo rm /etc/pihole/pihole-FTL.db
+# stop pihole FTL service
+sudo systemctl start pihole-FTL
+# output reduced pihole db size
+sudo du /etc/pihole/pihole-FTL.db -h
+pihole arpflush
+pihole restartdns
+pihole -g
+pihole -up
+speedtest
+echo "fin ;p  (rebooting)";
+sudo reboot;
