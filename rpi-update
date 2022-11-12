@@ -22,4 +22,3 @@ pihole -g
 pihole -up
 speedtest
 echo "fin ;p  (rebooting)";
-sudo reboot;
