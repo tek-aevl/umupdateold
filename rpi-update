@@ -1,6 +1,6 @@
-echo "Welcome " $USER
-inxi
-speedtest --secure
+echo "Welcome " $USER "@" $HOSTNAME
+sudo apt install inxi speedtest-cli 
+ping -c 5 1.1.1.1
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
@@ -20,5 +20,6 @@ pihole arpflush
 pihole restartdns
 pihole -g
 pihole -up
-speedtest
+speedtest --secure
+inxi
 echo "fin ;p  (rebooting)";
