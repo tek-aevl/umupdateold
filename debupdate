@@ -8,7 +8,7 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove
 echo "Connecting to ssh -t";
-ssh -t localhost 'bash update && echo "Sending Reboot" && sudo reboot 1'
+ssh -t  'bash update && echo "Sending Reboot" && sudo reboot 5'
 echo ":~$ speedtest" && speedtest --secure
 inxi
 echo "byah";
