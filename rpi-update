@@ -1,9 +1,8 @@
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli 
 ping -c 5 1.1.1.1
-sudo apt update
-sudo apt upgrade
-sudo apt autoremove
+sudo apt update && sudo apt upgrade; sudo apt autoremove
+echo "Flushing Logs"
 # output current pihole db size
 sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
@@ -19,7 +18,8 @@ sudo du -h /etc/pihole/pihole-FTL.db -h
 pihole arpflush
 pihole restartdns
 pihole -g
+pihole restartdns
 pihole -up
 speedtest --secure
 inxi
-echo "fin ;p  (rebooting)";
+echo "fin ;p  (rebooting) maybe ;-p";
