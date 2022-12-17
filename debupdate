@@ -1,10 +1,9 @@
 #!/bin/bash
-sudo apt install inxi speedtest-cli tailscale
 echo "Welcome " $USER "@" $HOSTNAME && sleep 2
 echo ":~$ uname -a "  && uname -a && sleep 3
 echo ":~$ last -10 "   && last -10 && sleep 2
 echo ":~$ who -a " && who -a && sleep 3
-sudo apt install speedtest-cli inxi
+sudo apt install speedtest-cli inxi tailscale
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
