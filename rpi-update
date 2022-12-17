@@ -5,7 +5,7 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove
 # output current pihole db size
-sudo du /etc/pihole/pihole-FTL.db -h
+sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
 pihole flush
 # stop pihole FTL service
@@ -15,7 +15,7 @@ sudo rm /etc/pihole/pihole-FTL.db
 # stop pihole FTL service
 sudo systemctl start pihole-FTL
 # output reduced pihole db size
-sudo du /etc/pihole/pihole-FTL.db -h
+sudo du -h /etc/pihole/pihole-FTL.db -h
 pihole arpflush
 pihole restartdns
 pihole -g
