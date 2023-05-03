@@ -8,17 +8,17 @@ echo "Welcome $USER@$HOSTNAME ($HOST_IP)"
 sleep 2
 
 # Display system information
-echo ":~$($HOST_IP) uname -a"
+echo ":~${HOST_IP} uname -a"
 uname -a
 sleep 3
 
 # Display login history
-echo ":~$($HOST_IP) last -10"
+echo ":~${HOST_IP} last -10"
 last -10
 sleep 2
 
 # Display information about users currently logged in
-echo ":~$($HOST_IP) who -a"
+echo ":~${HOST_IP} who -a"
 who -a
 sleep 3
 
@@ -29,7 +29,7 @@ sudo apt upgrade
 sudo apt autoremove
 
 # Display internet speed and system information
-echo ":~$($HOST_IP) speedtest"
+echo ":~${HOST_IP} speedtest"
 speedtest --secure
 inxi
 
