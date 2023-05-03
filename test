@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Function to check if Pi-hole is installed and running on a host
+function check_pihole {
+  # Check if the Pi-hole service is running
+  if ssh -q -o ConnectTimeout=1 $1 "systemctl is-active pihole-FTL.service &> /dev/null"; then
+    # Check if the Pi-hole web interface is accessible
+    if curl -s -I -H "Host: pi.hole" http://$1/admin/ &> /dev/null; then
+      return 0  # Pi-hole is installed and running
+    fi
+  fi
+  return 1  # Pi-hole is not installed or not running
+}
+
+# Get the IP address of the current machine
+MY_IP=$(ip route get 1 | awk '{print $NF;exit}')
+
+# Loop through both subnets in parallel
+for IP in $(seq 0 255 | awk '{print "10.20.0."$1}' | grep -vE "10.20.0.1|${MY_IP}"); do
+  ping -c1 -w1 $IP &> /dev/null && {
+    echo "Connecting to $IP"
+    if check_pihole $IP; then
+      echo "Pi-hole detected on $IP"
+      ssh -yt $IP "bash <(curl -s https://raw.githubusercontent.com/username/script-for-pi-hole/main/script.sh)"
+    else
+      ssh -yt $IP "bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/debupdate)"
+    fi
+  } &
+done
+
+for IP in $(seq 0 255 | awk '{print "192.168.10."$1}' | grep -vE "192.168.10.1|${MY_IP}"); do
+  ping -c1 -w1 $IP &> /dev/null && {
+    echo "Connecting to $IP"
+    if check_pihole $IP; then
+      echo "Pi-hole detected on $IP"
+      ssh -yt $IP "bash <(curl -s https://raw.githubusercontent.com/username/script-for-pi-hole/main/script.sh)"
+    else
+      ssh -yt $IP "bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/debupdate)"
+    fi
+  } &
+done
+
+wait
