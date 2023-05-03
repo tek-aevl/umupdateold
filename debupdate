@@ -29,7 +29,6 @@ sudo apt upgrade
 sudo apt autoremove
 
 # Display internet speed and system information
-echo "Connecting to ssh -t"
 echo ":~$($HOST_IP) speedtest"
 speedtest --secure
 inxi
