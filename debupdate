@@ -1,14 +1,36 @@
 #!/bin/bash
-echo "Welcome " $USER "@" $HOSTNAME && sleep 2
-echo ":~$ uname -a "  && uname -a && sleep 3
-echo ":~$ last -10 "   && last -10 && sleep 2
-echo ":~$ who -a " && who -a && sleep 3
+
+# Display a welcome message
+echo "Welcome $USER@$HOSTNAME"
+sleep 2
+
+# Display system information
+echo ":~$ uname -a"
+uname -a
+sleep 3
+
+# Display login history
+echo ":~$ last -10"
+last -10
+sleep 2
+
+# Display information about users currently logged in
+echo ":~$ who -a"
+who -a
+sleep 3
+
+# Install necessary packages and update the system
 sudo apt install speedtest-cli inxi tailscale
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
-echo "Connecting to ssh -t";
-#ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
-echo ":~$ speedtest" && speedtest --secure
+
+# Display internet speed and system information
+echo ":~$ speedtest"
+speedtest --secure
 inxi
-echo "byah";
+
+# Reboot the system after updates
+# ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
+
+echo "byah"
