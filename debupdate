@@ -1,21 +1,24 @@
 #!/bin/bash
 
+# Get the IP address of the host
+HOST_IP=$(hostname -I | awk '{print $1}')
+
 # Display a welcome message
-echo "Welcome $USER@$HOSTNAME"
+echo "Welcome $USER@$HOSTNAME ($HOST_IP)"
 sleep 2
 
 # Display system information
-echo ":~$ uname -a"
+echo ":~$($HOST_IP) uname -a"
 uname -a
 sleep 3
 
 # Display login history
-echo ":~$ last -10"
+echo ":~$($HOST_IP) last -10"
 last -10
 sleep 2
 
 # Display information about users currently logged in
-echo ":~$ who -a"
+echo ":~$($HOST_IP) who -a"
 who -a
 sleep 3
 
@@ -26,7 +29,8 @@ sudo apt upgrade
 sudo apt autoremove
 
 # Display internet speed and system information
-echo ":~$ speedtest"
+echo "Connecting to ssh -t"
+echo ":~$($HOST_IP) speedtest"
 speedtest --secure
 inxi
 
