@@ -23,7 +23,7 @@ if [[ -f "$stamp_file" ]]; then
 
   # Check if the stamp contents equal a week ago
   if [[ "$stamp_contents" == "$week_ago" ]]; then
-    echo ".!>The stamp file contents are equal to a week ago"
+    echo "<./>The stamp file contents are equal to a week ago"
     # Perform the cleanup operations here
     # Stop pihole FTL service
     sudo systemctl stop pihole-FTL
@@ -34,7 +34,7 @@ if [[ -f "$stamp_file" ]]; then
     # Output reduced pihole db size
     sudo du -h /etc/pihole/pihole-FTL.db -h
   else
-    echo "The stamp file contents do not match a week ago"
+    echo "<!> The stamp file contents do not match a week ago"
   fi
 else
   echo "The stamp file does not exist"
