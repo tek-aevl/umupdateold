@@ -7,14 +7,39 @@ echo "Flushing Logs"
 sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
 pihole flush
-# stop pihole FTL service
-sudo systemctl stop pihole-FTL
-# delete the FTL database file
-sudo rm /etc/pihole/pihole-FTL.db
-# stop pihole FTL service
-sudo systemctl start pihole-FTL
-# output reduced pihole db size
-sudo du -h /etc/pihole/pihole-FTL.db -h
+
+#!/bin/bash
+
+# Path to the stamp file
+stamp_file=".stamp"
+
+# Get the timestamp of a week ago
+week_ago=$(date -d '1 week ago' +%s)
+
+# Check if the stamp file exists
+if [[ -f "$stamp_file" ]]; then
+  # Read the contents of the stamp file
+  stamp_contents=$(cat "$stamp_file")
+
+  # Check if the stamp contents equal a week ago
+  if [[ "$stamp_contents" == "$week_ago" ]]; then
+    echo "The stamp file contents are equal to a week ago"
+    # Perform the cleanup operations here
+    # Stop pihole FTL service
+    sudo systemctl stop pihole-FTL
+    # Delete the FTL database file
+    sudo rm /etc/pihole/pihole-FTL.db
+    # Start pihole FTL service
+    sudo systemctl start pihole-FTL
+    # Output reduced pihole db size
+    sudo du -h /etc/pihole/pihole-FTL.db -h
+  else
+    echo "The stamp file contents do not match a week ago"
+  fi
+else
+  echo "The stamp file does not exist"
+   echo $(date +%s) > "$stamp_file"
+fi
 pihole arpflush
 pihole restartdns
 pihole -g
