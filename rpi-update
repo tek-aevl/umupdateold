@@ -1,5 +1,5 @@
 echo "Welcome " $USER "@" $HOSTNAME
-sudo apt install inxi speedtest-cli 
+sudo apt install inxi speedtest-cli neofetch
 ping -c 5 1.1.1.1
 sudo apt update && sudo apt upgrade; sudo apt autoremove
 echo "Flushing Logs"
@@ -61,6 +61,8 @@ one_week_ago=$(date -d '1 week ago' +%s)
 
 # Get the system uptime in seconds
 uptime_timestamp=$(cut -d' ' -f1 /proc/uptime)
+echo "Bye ! " $USER "@" $HOSTNAME
+neofetch
 
 # Check if the installed kernel is newer than the latest kernel version and the system uptime is less than one week
 if [[ $installed_kernel != $latest_kernel ]] && [[ $uptime_timestamp -lt $one_week_ago ]]; then
