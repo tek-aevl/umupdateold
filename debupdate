@@ -27,6 +27,21 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove
 
+# Check if inxi command is installed
+if ! command -v inxi &> /dev/null; then
+  # inxi command is not found, install it
+  echo "Installing inxi..."
+  if command -v apt-get &> /dev/null; then
+    sudo apt-get update
+    sudo apt-get install -y inxi
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy inxi
+  else
+    echo "Unable to install inxi. Please install it manually."
+    exit 1
+  fi
+fi
+
 # Check if speedtest command is installed
 if ! command -v speedtest &> /dev/null; then
   # speedtest command is not found, install it
@@ -48,8 +63,8 @@ fi
 # Display internet speed and system information
 echo ":~${HOST_IP} speedtest"
 speedtest --secure
-
 # Reboot the system after updates
 # ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
-
+uptime && who -a
+inxi
 echo "byah"
