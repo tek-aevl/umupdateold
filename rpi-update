@@ -1,6 +1,5 @@
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli neofetch
-ping -c 5 1.1.1.1
 sudo apt update && sudo apt upgrade; sudo apt autoremove
 echo "Flushing Logs"
 # output current pihole db size
