@@ -22,5 +22,5 @@ pihole restartdns
 pihole -up
 speedtest --secure
 inxi
-echo who -a && last -l 6
+echo who -a && last -n 6
 echo "fin ;p  (rebooting) maybe ;-p"; sudo reboot
