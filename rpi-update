@@ -45,7 +45,7 @@ pihole restartdns
 pihole -g
 pihole restartdns
 pihole -up
-speedtest --secure
+#speedtest --secure
 inxi
 echo who -a && last -n 6
 echo "fin ;p  (rebooting) maybe ;-p";
