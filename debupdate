@@ -27,6 +27,24 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove
 
+# Check if speedtest command is installed
+if ! command -v speedtest &> /dev/null; then
+  # speedtest command is not found, install it
+  echo "Installing speedtest-cli..."
+  if command -v apt-get &> /dev/null; then
+    sudo apt-get update
+    sudo apt-get install -y speedtest-cli
+  elif command -v yum &> /dev/null; then
+    sudo yum install -y epel-release
+    sudo yum install -y speedtest-cli
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy speedtest-cli
+  else
+    echo "Unable to install speedtest-cli. Please install it manually."
+    exit 1
+  fi
+fi
+
 # Display internet speed and system information
 echo ":~${HOST_IP} speedtest"
 speedtest --secure
