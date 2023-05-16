@@ -48,4 +48,36 @@ pihole -up
 speedtest --secure
 inxi
 echo who -a && last -n 6
-echo "fin ;p  (rebooting) maybe ;-p"; sudo reboot
+echo "fin ;p  (rebooting) maybe ;-p";
+#!/bin/bash
+
+# Get the uptime of the system
+uptime=$(uptime -s)
+
+# Get the current timestamp
+current_timestamp=$(date +%s)
+
+# Get the timestamp of one month ago
+one_month_ago=$(date -d '1 month ago' +%s)
+
+# Convert uptime to timestamp
+uptime_timestamp=$(date -d "$uptime" +%s)
+
+# Check if the system has been running for longer than one month
+if [[ $uptime_timestamp -lt $one_month_ago ]]; then
+  echo "The system has been running for longer than one month."
+  
+  # Prompt for reboot confirmation
+  read -p "Do you want to reboot the system? (y/n): " choice
+  if [[ $choice == [Yy] ]]; then
+    echo "Rebooting..."
+    # Uncomment the following line to perform the reboot
+    # sudo reboot
+  else
+    echo "Reboot cancelled."
+  fi
+else
+  echo "The system has not been running for longer than one month. No reboot required."
+fi
+
+
