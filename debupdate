@@ -22,8 +22,7 @@ echo ":~${HOST_IP} who -a"
 who -a
 sleep 3
 
-# Install necessary packages and update the system
-sudo apt install speedtest-cli inxi tailscale
+# Upgrade and Update the system
 sudo apt update
 sudo apt upgrade
 sudo apt autoremove
@@ -31,7 +30,6 @@ sudo apt autoremove
 # Display internet speed and system information
 echo ":~${HOST_IP} speedtest"
 speedtest --secure
-inxi
 
 # Reboot the system after updates
 # ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
