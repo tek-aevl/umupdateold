@@ -53,7 +53,8 @@ installed_kernel=$(uname -r)
 
 # Get the latest kernel version from the repository
 #latest_kernel=$(apt-cache policy raspberrypi-kernel | grep "Installed" | awk '{print $2}')
-latest_kernel=$(dpkg -l | grep -E '^ii\s+linux-image' | awk '{print $3}' | sort -V | tail -1)
+#latest_kernel=$(dpkg -l | grep -E '^ii\s+linux-image' | awk '{print $3}' | sort -V | tail -1)
+latest_kernel=$(apt-cache policy linux-base | awk '/Installed:/ {print $2}')
 
 # Calculate the timestamp of one week ago
 one_week_ago=$(date -d '1 week ago' +%s)
