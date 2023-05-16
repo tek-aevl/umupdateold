@@ -67,7 +67,13 @@ speedtest --secure
 # ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
 uptime && who -a
 inxi
-#!/bin/bash
+
+
+# Get the running kernel version
+running_kernel=$(uname -r)
+
+# Get the installed kernel version
+installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
 # Get the uptime of the system
 uptime=$(uptime -s)
@@ -84,19 +90,22 @@ uptime_timestamp=$(date -d "$uptime" +%s)
 # Check if the system has been running for longer than one month
 if [[ $uptime_timestamp -lt $one_month_ago ]]; then
   echo "The system has been running for longer than one month."
-  
-  # Prompt for reboot confirmation
-  read -p "Do you want to reboot the system? (y/n): " choice
-  if [[ $choice == [Yy] ]]; then
-    echo "Rebooting..."
-    # Uncomment the following line to perform the reboot
-    # sudo reboot
+  if [[ $running_kernel != $installed_kernel ]]; then
+    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
+    if [[ $choice == [Yy] ]]; then
+      echo "Rebooting..."
+      # Uncomment the following line to perform the reboot
+       sudo reboot
+    else
+      echo "Reboot cancelled."
+    fi
   else
-    echo "Reboot cancelled."
+    echo "The running kernel matches the installed kernel. No reboot required."
   fi
 else
   echo "The system has not been running for longer than one month. No reboot required."
 fi
+
 
 
 
