@@ -80,6 +80,3 @@ if [[ $installed_kernel != $latest_kernel ]] && [[ $uptime_timestamp -lt $one_we
 else
   echo "The installed kernel is up to date or the system has been running for longer than one week. No reboot required."
 fi
-
-
-
