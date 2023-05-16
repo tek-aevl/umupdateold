@@ -50,12 +50,11 @@ inxi
 echo who -a && last -n 6
 echo "fin ;p  (rebooting) maybe ;-p";
 
-
 # Get the running kernel version
-running_kernel=$(uname -r)
+installed_kernel=$(uname -r)
 
-# Get the installed kernel version
-installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
+# Get the latest kernel version from the repository
+latest_kernel=$(apt-cache policy raspberrypi-kernel | grep "Installed" | awk '{print $2}')
 
 # Get the uptime of the system
 uptime=$(uptime -s)
@@ -72,12 +71,13 @@ uptime_timestamp=$(date -d "$uptime" +%s)
 # Check if the system has been running for longer than one month
 if [[ $uptime_timestamp -lt $one_month_ago ]]; then
   echo "The system has been running for longer than one month."
-  if [[ $running_kernel != $installed_kernel ]]; then
-    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
+if [[ $installed_kernel != $latest_kernel ]]; then
+  echo "The installed kernel ($installed_kernel) differs from the latest kernel version ($latest_kernel)."
+  read -p "Do you want to reboot? (y/n): " choice
     if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
-      # sudo reboot
+      sudo reboot
     else
       echo "Reboot cancelled."
     fi
