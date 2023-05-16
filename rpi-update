@@ -1,3 +1,4 @@
+#!/bin/bash
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli neofetch
 sudo apt update && sudo apt upgrade; sudo apt autoremove
@@ -6,8 +7,6 @@ echo "Flushing Logs"
 sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
 pihole flush
-
-#!/bin/bash
 
 # Path to the stamp file
 stamp_file=".stamp"
