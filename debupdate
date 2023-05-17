@@ -61,7 +61,7 @@ if ! command -v speedtest &> /dev/null; then
 fi
 
 # Display internet speed and system information
-echo ":~$ {HOST_IP} speedtest"
+echo ":~${HOST_IP} speedtest"
 speedtest --secure
 
 # Get the running kernel version
