@@ -31,9 +31,9 @@ sudo apt autoremove
 if ! command -v inxi &> /dev/null; then
   # inxi command is not found, install it
   echo "Installing inxi..."
-  if command -v apt-get &> /dev/null; then
-    sudo apt-get update
-    sudo apt-get install -y inxi
+  if command -v apt &> /dev/null; then
+    sudo apt update
+    sudo apt install -y inxi
   elif command -v pacman &> /dev/null; then
     sudo pacman -Sy inxi
   else
@@ -47,8 +47,8 @@ if ! command -v speedtest &> /dev/null; then
   # speedtest command is not found, install it
   echo "Installing speedtest-cli..."
   if command -v apt-get &> /dev/null; then
-    sudo apt-get update
-    sudo apt-get install -y speedtest-cli
+    sudo apt update
+    sudo apt install -y speedtest-cli
   elif command -v yum &> /dev/null; then
     sudo yum install -y epel-release
     sudo yum install -y speedtest-cli
