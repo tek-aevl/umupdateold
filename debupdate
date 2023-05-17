@@ -81,21 +81,21 @@ uptime=$(uptime -s)
 # Get the current timestamp
 current_timestamp=$(date +%s)
 
-# Get the timestamp of one month ago
-one_month_ago=$(date -d '1 month ago' +%s)
+# Get the timestamp of one week ago
+one_week_ago=$(date -d '1 week ago' +%s)
 
 # Convert uptime to timestamp
 uptime_timestamp=$(date -d "$uptime" +%s)
 
-# Check if the system has been running for longer than one month
-if [[ $uptime_timestamp -lt $one_month_ago ]]; then
-  echo "The system has been running for longer than one month."
+# Check if the system has been running for longer than one week
+if [[ $uptime_timestamp -lt $one_week_ago ]]; then
+  echo "The system has been running for longer than one week."
   if [[ $running_kernel != $installed_kernel ]]; then
     read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
     if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
-       sudo reboot
+      # sudo reboot
     else
       echo "Reboot cancelled."
     fi
@@ -103,7 +103,7 @@ if [[ $uptime_timestamp -lt $one_month_ago ]]; then
     echo "The running kernel matches the installed kernel. No reboot required."
   fi
 else
-  echo "The system has not been running for longer than one month. No reboot required."
+  echo "The system has not been running for longer than one week. No reboot required."
 fi
 
 
