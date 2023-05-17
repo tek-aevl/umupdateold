@@ -61,13 +61,8 @@ if ! command -v speedtest &> /dev/null; then
 fi
 
 # Display internet speed and system information
-echo ":~${HOST_IP} speedtest"
+echo ":~$ {HOST_IP} speedtest"
 speedtest --secure
-# Reboot the system after updates
-# ssh -t 127.0.1.1 'bash update && echo "Sending Reboot" && sudo reboot 5'
-uptime && who -a
-inxi
-
 
 # Get the running kernel version
 running_kernel=$(uname -r)
@@ -95,7 +90,7 @@ if [[ $uptime_timestamp -lt $one_week_ago ]]; then
     if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
-      # sudo reboot
+      sudo reboot
     else
       echo "Reboot cancelled."
     fi
@@ -105,8 +100,8 @@ if [[ $uptime_timestamp -lt $one_week_ago ]]; then
 else
   echo "The system has not been running for longer than one week. No reboot required."
 fi
-
-
-
+uptime 
+who -a
+inxi
 
 echo "byah"
