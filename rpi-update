@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli neofetch
-sudo apt update && sudo apt upgrade -y --noconfirm && sudo apt autoremove
+sudo apt update && sudo apt upgrade -y && sudo apt autoremove
 echo "Flushing Logs"
 # output current pihole db size
 sudo du -h /etc/pihole/pihole-FTL.db -h
