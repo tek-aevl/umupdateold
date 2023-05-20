@@ -84,7 +84,7 @@ neofetch
 if [[ $installed_kernel != $latest_kernel ]] && [[ $uptime_timestamp -lt $one_week_ago ]]; then
   echo "$default_branch"
   echo "$latest_kernel"
-  echo "The installed kernel ($installed_kernel) differs from the latest kernel version ($latest_kernel)."
+  echo "The installed kernel ($installed_kernel) differs from the default branch kernel version ($default_branch)."
 
   # Prompt for reboot confirmation
   read -p "Do you want to reboot? (y/n): " choice
