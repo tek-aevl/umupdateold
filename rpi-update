@@ -32,11 +32,12 @@ if [[ -f "$stamp_file" ]]; then
     # Output reduced pihole db size
     sudo du -h /etc/pihole/pihole-FTL.db -h
   else
-    echo "<!> The stamp file contents do not match a week ago"
+    echo "<!> Stamp not older than a week yet.. <!>"
   fi
 else
-  echo "The stamp file does not exist"
+  echo "<!> The stamp file does not exist <!>"
    echo $(date +%s) > "$stamp_file"
+   uptime && sleep 3 && echo "Resuming!" 
 fi
 pihole arpflush
 pihole restartdns
