@@ -36,7 +36,7 @@ if [[ -f "$stamp_file" ]]; then
 else
   echo "<!> The stamp file does not exist <!>"
    echo $(date +%s) > "$stamp_file"
-   uptime && sleep 3 && echo "Resuming!" 
+ 
 fi
 
 # Output reduced pihole db size
@@ -47,7 +47,8 @@ pihole restartdns
 pihole -g
 pihole restartdns
 pihole -up
-#speedtest --secure
+  uptime; sleep 3; echo "Resuming!" 
+speedtest --secure
 
 inxi
 
