@@ -32,8 +32,7 @@ if [[ -f "$stamp_file" ]]; then
     # Output reduced pihole db size
     sudo du -h /etc/pihole/pihole-FTL.db -h
   else
-    echo "<!> Stamp not older than a week yet.. <!>"
-    echo "$stamp_contents"
+    echo "<!> Stamp not older than a week yet.[ $stamp_contents ]. <!>"
     sleep 3
   fi
 else
