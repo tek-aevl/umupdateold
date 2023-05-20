@@ -51,22 +51,27 @@ echo "fin ;p  (rebooting) maybe ;-p";
 # Get the installed kernel version
 installed_kernel=$(uname -r)
 
-# URL to the Raspberry Pi kernel repository releases
-url="https://api.github.com/repos/raspberrypi/linux/releases"
+# URL to the Raspberry Pi kernel repository
+url="https://api.github.com/repos/raspberrypi/linux"
 
-# Get the latest release information
-latest_release=$(curl -s "$url" | grep -m 1 '"tag_name":' | cut -d'"' -f4)
+# Get the repository information
+repo_info=$(curl -s "$url")
 
-# Extract the kernel version from the release tag
-latest_kernel=$(echo "$latest_release" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
-echo $latest_kernel
+# Extract the default branch
+default_branch=$(echo "$repo_info" | grep -m 1 '"default_branch":' | cut -d'"' -f4)
+# Extract the version number from the default branch
+latest_kernel=$(echo "$default_branch" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | cut -d'.' -f1)
+
+echo "$latest_kernel"
+
 echo $latest_release
+sleep 5
 # Calculate the timestamp of one week ago
 one_week_ago=$(date -d '1 week ago' +%s)
 
 # Get the system uptime in seconds
 uptime_timestamp=$(printf "%.0f" $(cut -d' ' -f1 /proc/uptime))
-echo "Bye ! " $USER "@" $HOSTNAME
+echo "l8r ! " $USER "@" $HOSTNAME
 neofetch
 
 # Check if the installed kernel is newer than the latest kernel version and the system uptime is less than one week
