@@ -29,8 +29,6 @@ if [[ -f "$stamp_file" ]]; then
     sudo rm /etc/pihole/pihole-FTL.db
     # Start pihole FTL service
     sudo systemctl start pihole-FTL
-    # Output reduced pihole db size
-    sudo du -h /etc/pihole/pihole-FTL.db -h
   else
     echo "<!> Stamp not older than a week yet.[ $stamp_contents ]. <!>"
     sleep 3
@@ -40,6 +38,10 @@ else
    echo $(date +%s) > "$stamp_file"
    uptime && sleep 3 && echo "Resuming!" 
 fi
+
+# Output reduced pihole db size
+  sudo du -h /etc/pihole/pihole-FTL.db -h
+
 pihole arpflush
 pihole restartdns
 pihole -g
@@ -67,12 +69,15 @@ latest_kernel=$(echo "$default_branch" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | cut
 echo "latest: $latest_kernel"
 echo "default: $default_branch"
 sleep 5
+
 # Calculate the timestamp of one week ago
 one_week_ago=$(date -d '1 week ago' +%s)
 
 # Get the system uptime in seconds
 uptime_timestamp=$(printf "%.0f" $(cut -d' ' -f1 /proc/uptime))
+
 echo "l8r ! " $USER "@" $HOSTNAME
+
 neofetch
 
 # Check if the installed kernel is newer than the latest kernel version and the system uptime is less than one week
