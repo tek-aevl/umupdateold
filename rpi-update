@@ -33,6 +33,8 @@ if [[ -f "$stamp_file" ]]; then
     sudo du -h /etc/pihole/pihole-FTL.db -h
   else
     echo "<!> Stamp not older than a week yet.. <!>"
+    echo "$stamp_contents"
+    sleep 3
   fi
 else
   echo "<!> The stamp file does not exist <!>"
