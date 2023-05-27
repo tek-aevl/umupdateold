@@ -111,7 +111,7 @@ if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
     if [[ $choice != [Nn] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
-      # sudo reboot
+       sudo reboot
     else
       echo "Reboot cancelled."
     fi
@@ -127,7 +127,7 @@ else
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
     # Uncomment the following line to perform the reboot
-    # sudo reboot
+     sudo reboot
   else
     echo "Reboot cancelled."
   fi
