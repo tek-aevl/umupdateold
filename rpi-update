@@ -8,44 +8,38 @@ sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
 pihole flush
 
-# Path to the stamp file
-stamp_file=".stamp"
+#!/bin/bash
+
+# Get the uptime of the system
+uptime=$(uptime -s)
 
 # Get the current timestamp
 current_timestamp=$(date +%s)
 
-# Get the timestamp of three days ago
-three_days_ago=$(date -d '3 days ago' +%s)
+# Convert uptime to timestamp
+uptime_timestamp=$(date -d "$uptime" +%s)
 
-# Check if the stamp file exists
-if [[ -f "$stamp_file" ]]; then
-  # Read the contents of the stamp file
-  stamp_contents=$(cat "$stamp_file")
+# Calculate the time difference in seconds
+time_difference=$((current_timestamp - uptime_timestamp))
 
-  # Check if the stamp contents are older than three days
-  if [[ $stamp_contents -lt $three_days_ago ]]; then
-    echo "The stamp file contents are older than three days. [ $stamp_contents ]"
+# Convert time difference to days, hours, and minutes
+days=$((time_difference / 86400))
+hours=$(( (time_difference % 86400) / 3600 ))
+minutes=$(( (time_difference % 3600) / 60 ))
 
-    # Perform the desired operations here
-    # Stop pihole FTL service
-    sudo systemctl stop pihole-FTL
-    # Delete the FTL database file
-    sudo rm /etc/pihole/pihole-FTL.db
-    # Start pihole FTL service
-    sudo systemctl start pihole-FTL
-
-    # Update the stamp file with the current timestamp
-    echo $current_timestamp > "$stamp_file"
-
-  else
-    echo "The stamp file contents are not older than three days. [ $stamp_contents ]"
-    sleep 3
-  fi
+# Check if the system has been running for longer than three days
+if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
+  echo "The system has been running for longer than three days."
+  
+  # Stop pihole FTL service
+  sudo systemctl stop pihole-FTL
+  # Delete the FTL database file
+  sudo rm /etc/pihole/pihole-FTL.db
+  # Start pihole FTL service
+  sudo systemctl start pihole-FTL
 else
-  echo "The stamp file does not exist."
-
-  # Create the stamp file with the current timestamp
-  echo $current_timestamp > "$stamp_file"
+  echo "The system has not been running for longer than three days. No pihole operations required."
+  echo "System uptime: $days days, $hours hours, $minutes minutes"
 fi
 
 # Output reduced pihole db size
@@ -90,23 +84,53 @@ echo "l8r ! " $USER "@" $HOSTNAME
 
 neofetch
 
-# Check if the installed kernel is newer than the latest kernel version and the system uptime is less than one week
-if [[ $installed_kernel != $latest_kernel ]] && [[ $uptime_timestamp -lt $one_week_ago ]]; then
-  echo "$default_branch"
-  echo "$latest_kernel"
-  echo "The installed kernel ($installed_kernel) differs from the default branch kernel version ($default_branch)."
 
-  # Prompt for reboot confirmation
+
+# Get the uptime of the system
+uptime=$(uptime -s)
+
+# Get the current timestamp
+current_timestamp=$(date +%s)
+
+# Convert uptime to timestamp
+uptime_timestamp=$(date -d "$uptime" +%s)
+
+# Calculate the time difference in seconds
+time_difference=$((current_timestamp - uptime_timestamp))
+
+# Convert time difference to days, hours, and minutes
+days=$((time_difference / 86400))
+hours=$(( (time_difference % 86400) / 3600 ))
+minutes=$(( (time_difference % 3600) / 60 ))
+
+# Check if the system has been running for longer than three days
+if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
+  echo "The system has been running for longer than three days."
+  if [[ $running_kernel != $installed_kernel ]]; then
+    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
+    if [[ $choice != [Nn] ]]; then
+      echo "Rebooting..."
+      # Uncomment the following line to perform the reboot
+      # sudo reboot
+    else
+      echo "Reboot cancelled."
+    fi
+  else
+    echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
+  fi
+else
+  echo "The system has not been running for longer than three days. No reboot required."
+  echo "System uptime: $days days, $hours hours, $minutes minutes"
+
+# Default to "no" if running for less than three days
   read -p "Do you want to reboot? (y/n): " choice
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
     # Uncomment the following line to perform the reboot
-     echo "fin ;p  (rebooting) ;-p";
-     sudo reboot
+    # sudo reboot
   else
     echo "Reboot cancelled."
   fi
-else
-  echo "The installed kernel is up to date or the system has been running for longer than one week. No reboot required."
 fi
+
 echo "fin ;p  ;-p";
