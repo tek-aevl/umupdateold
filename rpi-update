@@ -2,12 +2,6 @@
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli neofetch curl
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove
-echo "Flushing Logs"
-# output current pihole db size
-sudo du -h /etc/pihole/pihole-FTL.db -h
-# flush pihole logs
-pihole flush
-
 # Get the uptime of the system
 uptime=$(uptime -s)
 
@@ -27,17 +21,22 @@ minutes=$(( (time_difference % 3600) / 60 ))
 
 # Check if the system has been running for longer than three days
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
-  echo "The system has been running for longer than three days."
-  # Output pihole db size
-  sudo du -h /etc/pihole/pihole-FTL.db -h
-  # Stop pihole FTL service
-  sudo systemctl stop pihole-FTL
-  # Delete the FTL database file
-  sudo rm /etc/pihole/pihole-FTL.db
-  # Start pihole FTL service
-  sudo systemctl start pihole-FTL
-  # Output reduced pihole db size
-  sudo du -h /etc/pihole/pihole-FTL.db -h
+ echo "The system has been running for longer than three days."
+ echo "Flushing Logs"
+ # output current pihole db size
+ sudo du -h /etc/pihole/pihole-FTL.db -h
+ # flush pihole logs
+ pihole flush
+ # Output pihole db size
+ sudo du -h /etc/pihole/pihole-FTL.db -h
+ # Stop pihole FTL service
+ sudo systemctl stop pihole-FTL
+ # Delete the FTL database file
+ sudo rm /etc/pihole/pihole-FTL.db
+ # Start pihole FTL service
+ sudo systemctl start pihole-FTL
+ # Output reduced pihole db size
+ sudo du -h /etc/pihole/pihole-FTL.db -h
 
 else
   echo "The system has not been running for longer than three days. No pihole log operations required."
