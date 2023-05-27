@@ -72,34 +72,57 @@ installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
 # Get the uptime of the system
 uptime=$(uptime -s)
+#!/bin/bash
 
 # Get the current timestamp
 current_timestamp=$(date +%s)
 
-# Get the timestamp of one week ago
-one_week_ago=$(date -d '1 week ago' +%s)
+# Get the timestamp of three days ago
+three_days_ago=$(date -d '3 days ago' +%s)
 
 # Convert uptime to timestamp
 uptime_timestamp=$(date -d "$uptime" +%s)
 
-# Check if the system has been running for longer than one week
-if [[ $uptime_timestamp -lt $one_week_ago ]]; then
-  echo "The system has been running for longer than one week."
+# Calculate the time difference in seconds
+time_difference=$((current_timestamp - uptime_timestamp))
+
+# Convert time difference to days, hours, and minutes
+days=$((time_difference / 86400))
+hours=$(( (time_difference % 86400) / 3600 ))
+minutes=$(( (time_difference % 3600) / 60 ))
+
+# Check if the system has been running for longer than three days
+if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
+  echo "The system has been running for longer than three days."
   if [[ $running_kernel != $installed_kernel ]]; then
     read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
-    if [[ $choice == [Yy] ]]; then
+    if [[ $choice != [Nn] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
-      sudo reboot
+      # sudo reboot
     else
       echo "Reboot cancelled."
     fi
   else
-    echo "The running kernel matches the installed kernel. No reboot required."
+    echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel) . No reboot required."
   fi
 else
-  echo "The system has not been running for longer than one week. No reboot required."
+  echo "The system has not been running for longer than three days. No reboot required."
+  echo "Time difference: $days days, $hours hours, $minutes minutes"
+
+  # Default to "no" if running for less than three days
+  read -p "Do you want to reboot? (y/n): " choice
+  if [[ $choice == [Yy] ]]; then
+    echo "Rebooting..."
+    # Uncomment the following line to perform the reboot
+    # sudo reboot
+  else
+    echo "Reboot cancelled."
+  fi
 fi
+
+
+
 uptime 
 who -a
 inxi
