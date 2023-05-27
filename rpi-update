@@ -8,8 +8,6 @@ sudo du -h /etc/pihole/pihole-FTL.db -h
 # flush pihole logs
 pihole flush
 
-#!/bin/bash
-
 # Get the uptime of the system
 uptime=$(uptime -s)
 
@@ -30,20 +28,22 @@ minutes=$(( (time_difference % 3600) / 60 ))
 # Check if the system has been running for longer than three days
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
   echo "The system has been running for longer than three days."
-  
+  # Output pihole db size
+  sudo du -h /etc/pihole/pihole-FTL.db -h
   # Stop pihole FTL service
   sudo systemctl stop pihole-FTL
   # Delete the FTL database file
   sudo rm /etc/pihole/pihole-FTL.db
   # Start pihole FTL service
   sudo systemctl start pihole-FTL
+  # Output reduced pihole db size
+  sudo du -h /etc/pihole/pihole-FTL.db -h
+
 else
-  echo "The system has not been running for longer than three days. No pihole operations required."
+  echo "The system has not been running for longer than three days. No pihole log operations required."
   echo "System uptime: $days days, $hours hours, $minutes minutes"
 fi
 
-# Output reduced pihole db size
-  sudo du -h /etc/pihole/pihole-FTL.db -h
 
 pihole arpflush
 pihole restartdns
@@ -73,9 +73,6 @@ latest_kernel=$(echo "$default_branch" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | cut
 echo "latest: $latest_kernel"
 echo "default: $default_branch"
 sleep 5
-
-# Calculate the timestamp of one week ago
-one_week_ago=$(date -d '1 week ago' +%s)
 
 # Get the system uptime in seconds
 uptime_timestamp=$(printf "%.0f" $(cut -d' ' -f1 /proc/uptime))
@@ -107,7 +104,7 @@ minutes=$(( (time_difference % 3600) / 60 ))
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
   echo "The system has been running for longer than three days."
   if [[ $running_kernel != $installed_kernel ]]; then
-    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/n): " choice
+    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
     if [[ $choice != [Nn] ]]; then
       echo "Rebooting..."
       # Uncomment the following line to perform the reboot
@@ -123,7 +120,7 @@ else
   echo "System uptime: $days days, $hours hours, $minutes minutes"
 
 # Default to "no" if running for less than three days
-  read -p "Do you want to reboot? (y/n): " choice
+  read -p "Do you want to reboot? (Y/n): " choice
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
     # Uncomment the following line to perform the reboot
