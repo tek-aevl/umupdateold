@@ -114,7 +114,7 @@ echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
   echo "Time difference: $days days, $hours hours, $minutes minutes"
 
   # Default to "no" if running for less than three days
-  read -p "Do you want to reboot? (Y/n): " choice
+  read -p "Do you want to reboot? (y/N): " choice
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
     echo "reboot $USER@$HOSTNAME ($HOST_IP)"
