@@ -59,24 +59,24 @@ if ! command -v speedtest &> /dev/null; then
     exit 1
   fi
 fi
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 # Display internet speed and system information
 echo ":~${HOST_IP} speedtest"
 speedtest --secure
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 # Get the running kernel version
 running_kernel=$(uname -r)
 
 # Get the installed kernel version
 installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
 uptime=$(uptime -s)
 #!/bin/bash
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 # Get the current timestamp
 current_timestamp=$(date +%s)
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 # Get the timestamp of three days ago
 three_days_ago=$(date -d '3 days ago' +%s)
 
@@ -98,10 +98,12 @@ if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
     read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
     if [[ $choice != [Nn] ]]; then
       echo "Rebooting..."
+      echo "$USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
        sudo reboot
     else
       echo "Reboot cancelled."
+      echo "$USER@$HOSTNAME ($HOST_IP)"
     fi
   else
     echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel) . No reboot required."
@@ -114,17 +116,17 @@ else
   read -p "Do you want to reboot? (Y/n): " choice
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
+    echo "$USER@$HOSTNAME ($HOST_IP)"
     # Uncomment the following line to perform the reboot
      sudo reboot
   else
     echo "Reboot cancelled."
   fi
 fi
-
-
-
+echo "$USER@$HOSTNAME ($HOST_IP)"
 uptime 
 who -a
+echo "$USER@$HOSTNAME ($HOST_IP)"
 inxi
-
 echo "byah"
+echo "$USER@$HOSTNAME ($HOST_IP)"
