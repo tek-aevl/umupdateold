@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "#To use this run it with
+curl -sSL https://raw.githubusercontent.com/tek-aevl/umupdate/main/friendica-update | bash
+"
 bin/console maintenance 1 "We will be right back!"
 cp -r /var/www/html/friendica /var/www/html/friendica_backup
 cd /var/www/html/friendica
