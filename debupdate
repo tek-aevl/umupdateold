@@ -130,5 +130,4 @@ echo "who-a $USER@$HOSTNAME ($HOST_IP)"
 who -a
 echo "inxi $USER@$HOSTNAME ($HOST_IP)"
 inxi
-echo "byah"
-echo $USER@$HOSTNAME ($HOST_IP)
+echo "byah $USER@$HOSTNAME $HOST_IP "
