@@ -24,7 +24,7 @@ sleep 3
 
 # Upgrade and Update the system
 sudo apt update
-sudo apt upgrade
+sudo apt upgrade -y
 sudo apt autoremove
 
 # Check if curl command is installed
