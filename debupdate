@@ -111,7 +111,7 @@ running_kernel=$(uname -r)
 installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
 if [[ $running_kernel != $installed_kernel ]]; then
-  read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
+  read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (Y/n): " choice
   if [[ $choice != [Nn] ]]; then
     echo "Rebooting..."
     echo "L8r $USER@$HOSTNAME ($HOST_IP)"
@@ -126,12 +126,12 @@ else
   uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
-    read -p "Do you want to reboot? (y/N): " choice
+    read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
       echo "$USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
-      #sudo reboot
+      sudo reboot
     else
       echo "Reboot cancelled."
       echo "$USER@$HOSTNAME ($HOST_IP)"
@@ -147,8 +147,7 @@ else
     # Default to "no" if running for less than three days
     read -p "Do you want to reboot? (y/N): " choice
     if [[ $choice == [Yy] ]]; then
-      echo "Rebooting..."
-      echo "$USER@$HOSTNAME ($HOST_IP)"
+      echo "Rebooting... $USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
       sudo reboot
     else
