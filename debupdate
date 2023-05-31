@@ -27,6 +27,22 @@ sudo apt update
 sudo apt upgrade
 sudo apt autoremove
 
+# Check if curl command is installed
+if ! command -v curl &> /dev/null; then
+  # curl command is not found, install it
+  echo "Installing curl..."
+  if command -v apt &> /dev/null; then
+    sudo apt update
+    sudo apt install -y curl
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy curl
+  else
+    echo "Unable to install curl. Please install it manually."
+    exit 1
+  fi
+fi
+
+
 # Check if inxi command is installed
 if ! command -v inxi &> /dev/null; then
   # inxi command is not found, install it
@@ -64,16 +80,14 @@ echo "$USER@$HOSTNAME ($HOST_IP)"
 echo ":~${HOST_IP} speedtest"
 speedtest --secure
 echo "$USER@$HOSTNAME ($HOST_IP)"
-# Get the running kernel version
-running_kernel=$(uname -r)
 
-# Get the installed kernel version
-installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 echo "$USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
 uptime=$(uptime -s)
 #!/bin/bash
 echo "$USER@$HOSTNAME ($HOST_IP)"
+
+
 # Get the current timestamp
 current_timestamp=$(date +%s)
 echo "$USER@$HOSTNAME ($HOST_IP)"
@@ -90,40 +104,59 @@ time_difference=$((current_timestamp - uptime_timestamp))
 days=$((time_difference / 86400))
 hours=$(( (time_difference % 86400) / 3600 ))
 minutes=$(( (time_difference % 3600) / 60 ))
+# Get the running kernel version
+running_kernel=$(uname -r)
+# Get the installed kernel version
+#installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
+installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
-# Check if the system has been running for longer than three days
-if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
-  echo "The system has been running for longer than three days."
-  if [[ $running_kernel != $installed_kernel ]]; then
-    read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
-    if [[ $choice != [Nn] ]]; then
+if [[ $running_kernel != $installed_kernel ]]; then
+  read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
+  if [[ $choice != [Nn] ]]; then
+    echo "Rebooting..."
+    echo "L8r $USER@$HOSTNAME ($HOST_IP)"
+    # Uncomment the following line to perform the reboot
+    sudo reboot
+  else
+    echo "Reboot cancelled."
+    echo "$USER@$HOSTNAME ($HOST_IP)"
+  fi
+else
+  echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
+  uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
+  if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
+    echo "The system has been running for longer than three days."
+    read -p "Do you want to reboot? (y/N): " choice
+    if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
       echo "$USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
-       sudo reboot
+      #sudo reboot
     else
       echo "Reboot cancelled."
       echo "$USER@$HOSTNAME ($HOST_IP)"
     fi
   else
-    echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel) . No reboot required."
-  fi
-else
-echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
-  echo "The system has not been running for longer than three days. No reboot required."
-  echo "Time difference: $days days, $hours hours, $minutes minutes"
+    echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
+    echo "The system has not been running for longer than three days. No reboot required."
+    days=$((uptime_seconds / 86400))
+    hours=$((uptime_seconds % 86400 / 3600))
+    minutes=$((uptime_seconds % 3600 / 60))
+    echo "Time difference: $days days, $hours hours, $minutes minutes"
 
-  # Default to "no" if running for less than three days
-  read -p "Do you want to reboot? (y/N): " choice
-  if [[ $choice == [Yy] ]]; then
-    echo "Rebooting..."
-    echo "reboot $USER@$HOSTNAME ($HOST_IP)"
-    # Uncomment the following line to perform the reboot
-     sudo reboot
-  else
-    echo "Reboot cancelled."
+    # Default to "no" if running for less than three days
+    read -p "Do you want to reboot? (y/N): " choice
+    if [[ $choice == [Yy] ]]; then
+      echo "Rebooting..."
+      echo "$USER@$HOSTNAME ($HOST_IP)"
+      # Uncomment the following line to perform the reboot
+      sudo reboot
+    else
+      echo "Reboot cancelled."
+    fi
   fi
 fi
+
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime 
 echo "who-a $USER@$HOSTNAME ($HOST_IP)"
