@@ -126,6 +126,10 @@ else
   uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
+    days=$((uptime_seconds / 86400))
+    hours=$((uptime_seconds % 86400 / 3600))
+    minutes=$((uptime_seconds % 3600 / 60))
+    echo "Time difference: $days days, $hours hours, $minutes minutes"
     read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice == [Yy] ]]; then
       echo "Rebooting..."
