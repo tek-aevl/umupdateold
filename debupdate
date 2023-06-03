@@ -111,8 +111,8 @@ running_kernel=$(uname -r)
 installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
 if [[ $running_kernel != $installed_kernel ]]; then
-  read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (Y/n): " choice
-  if [[ $choice != [Nn] ]]; then
+  read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
+  if [[ $choice != [Yy] ]]; then
     echo "Rebooting..."
     echo "L8r $USER@$HOSTNAME ($HOST_IP)"
     # Uncomment the following line to perform the reboot
