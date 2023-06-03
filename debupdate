@@ -115,10 +115,10 @@ if [[ $running_kernel != $installed_kernel ]]; then
     echo "Rebooting..."
     echo "L8r $USER@$HOSTNAME ($HOST_IP)"
     # Uncomment the following line to perform the reboot
-    sleep 2 && sudo reboot
+    sleep 3 && sudo reboot
   else
-    echo "Reboot cancelled."
-    echo "$USER@$HOSTNAME ($HOST_IP)"
+    echo "Reboot cancelled."  &&   sleep 3 
+    echo " $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
   echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
@@ -135,7 +135,7 @@ else
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo "Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)" && sleep 3
+      echo "Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)" && sleep 4
     fi
   else
     echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
@@ -152,11 +152,11 @@ else
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo "Reboot cancelled."  &&  sleep 2 
+      echo "Reboot cancelled."  &&  sleep 4 
     fi
   fi
 fi
-
+    sleep 2 &&     sleep 2 
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime 
 echo "who-a $USER@$HOSTNAME ($HOST_IP)"
@@ -164,4 +164,4 @@ who -a
 echo "inxi $USER@$HOSTNAME ($HOST_IP)"
 inxi
 echo "byah $USER@$HOSTNAME $HOST_IP "
-    sleep 2 &&     sleep 2
+ sleep 2 &&     sleep 2
