@@ -132,13 +132,11 @@ else
     echo "Time difference: $days days, $hours hours, $minutes minutes"
     read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice == [Yy] ]]; then
-      echo "Rebooting..."
-      echo "$USER@$HOSTNAME ($HOST_IP)"
+      echo "Rebooting... $USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
       sudo reboot
     else
-      echo "Reboot cancelled."
-      echo "$USER@$HOSTNAME ($HOST_IP)"
+      echo "Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)" && sleep 3
     fi
   else
     echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
