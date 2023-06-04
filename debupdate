@@ -122,21 +122,22 @@ sleep 5
 installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 
 # Input version string
-iversion=$(installed_kernel)
-echo "Major version: $iversion"
+version=$(installed_kernel)
+echo "Major version: $version"
 sleep 3
 # Extract major version using regular expression
-if [[ $iversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
-  iversion="${BASH_REMATCH[1]}"
+if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
+  version="${BASH_REMATCH[1]}"
 else
-echo "Major version: $iversion"
-installed_kernel=$iversion
+echo "Major version: $version"
+installed_kernel=$version
 echo "Invalid version format"
   exit 1
 fi
-echo "Major version: $iversion"
-installed_kernel=$iversion
-
+echo "Major version: $version"
+installed_kernel=$version
+echo "installed: $installed_kernel"
+sleep 5
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
