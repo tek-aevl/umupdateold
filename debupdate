@@ -130,14 +130,13 @@ sleep 3
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
-echo "Major version: $version"
-installed_kernel=$version
-echo "Invalid version format"
+  echo "Invalid version format"
   exit 1
 fi
 installed_kernel=$version
 echo "Major version: $version"
 echo "installed: $installed_kernel"
+echo "They should match again..."
 sleep 5
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
