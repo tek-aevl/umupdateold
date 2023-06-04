@@ -24,7 +24,7 @@ sleep 3
 echo ":~${HOST_IP} who -a"
 who -a
 sleep 3
-
+echo " Updating $USER@$HOSTNAME ($HOST_IP) "
 # Upgrade and Update the system
 sudo apt update
 sudo apt upgrade -y
