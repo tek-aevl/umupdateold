@@ -112,7 +112,7 @@ echo "Invalid version format"
   exit 1
 fi
 echo "Major version: $version"
-running_kernel="$version"
+running_kernel=$version
 echo "Running version: $running_kernel"
 sleep 5
 # Get the installed kernel version
@@ -123,18 +123,19 @@ installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'
 
 # Input version string
 iversion=$(installed_kernel)
-
+echo "Major version: $iversion"
+sleep 3
 # Extract major version using regular expression
 if [[ $iversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   iversion="${BASH_REMATCH[1]}"
 else
 echo "Major version: $iversion"
-installed_kernel=$(iversion)
- echo "Invalid version format"
+installed_kernel=$iversion
+echo "Invalid version format"
   exit 1
 fi
 echo "Major version: $iversion"
-installed_kernel=$(iversion)
+installed_kernel=$iversion
 
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
