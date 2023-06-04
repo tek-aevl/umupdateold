@@ -132,8 +132,9 @@ fi
 installed_kernel=$version
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
+echo "l135"
 sleep 5 
-echo "l136"
+
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
