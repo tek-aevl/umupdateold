@@ -83,8 +83,7 @@ running_kernel=$(uname -r)
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
-installed_kernel=$(dpkg -l | grep linux-image | awk '{print $2}' | awk -F'-' '{print $2}')
-
+installed_kernel=$(dpkg -l | grep linux- | awk '{print $2}' | awk -F'-' '{print $4}')
 
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
