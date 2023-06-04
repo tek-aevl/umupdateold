@@ -112,7 +112,7 @@ echo "Invalid version format"
   exit 1
 fi
 echo "Major version: $version"
-running_kernel=$(version)
+running_kernel="$version"
 echo "Running version: $running_kernel"
 sleep 5
 # Get the installed kernel version
