@@ -105,7 +105,9 @@ running_version=$(uname -r)
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
-  echo "Invalid version format"
+echo "Major version: $version"
+running_kernel=$(version)  
+echo "Invalid version format"
   exit 1
 fi
 echo "Major version: $version"
@@ -125,6 +127,8 @@ iversion=$(installed_kernel)
 if [[ $iversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   iversion="${BASH_REMATCH[1]}"
 else
+echo "Major version: $iversion"
+installed_kernel=$(iversion)
   echo "Invalid version format"
   exit 1
 fi
