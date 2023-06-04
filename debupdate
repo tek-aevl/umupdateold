@@ -8,22 +8,22 @@ HOST_IP=$(hostname -I | awk '{print $1}')
 
 # Display a welcome message
 echo "Welcome $USER@$HOSTNAME ($HOST_IP)"
-sleep 2
+sleep 1
 
 # Display system information
 echo ":~${HOST_IP} uname -a"
 uname -a
-sleep 3
+sleep 1
 
 # Display login history
 echo ":~${HOST_IP} last -10"
 last -10
-sleep 3
+sleep 1
 
 # Display information about users currently logged in
 echo ":~${HOST_IP} who -a"
 who -a
-sleep 3
+sleep 1
 echo " Updating $USER@$HOSTNAME ($HOST_IP) "
 # Upgrade and Update the system
 sudo apt update
@@ -150,7 +150,7 @@ else
   echo "The running kernel $running_kernel matches the installed kernel $installed_kernel. No reboot required."
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-  echo "l152"
+  echo "uptime seconds: $uptime_seconds"
   if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
     days=$(uptime_seconds / 86400)
