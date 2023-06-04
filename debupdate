@@ -117,7 +117,7 @@ installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'
 # Input version string
 version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-echo "Running version  : $running_kernel"
+echo "Running kernel   : $running_kernel"
 echo "Installed kernel : $installed_kernel"
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
@@ -127,10 +127,6 @@ else
   exit 1
 fi
 installed_kernel=$version
-echo "Running   version >>: $running_kernel"
-echo "Installed version >>: $installed_kernel"
-sleep 1 
-
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
@@ -144,8 +140,12 @@ if [[ $running_kernel != $installed_kernel ]]; then
     echo " $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
-  uname -a
-  echo "The running kernel $running_kernel matches the installed kernel $installed_kernel. No reboot required."
+
+uname -a
+echo "Running   version >>: $running_kernel"
+echo "Installed version >>: $installed_kernel"
+sleep 1 
+echo "The running kernel $running_kernel matches the installed kernel $installed_kernel. No reboot required."
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
   uptime_seconds=$(printf "%.0f" "$uptime_seconds")
