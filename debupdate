@@ -99,17 +99,17 @@ hours=$(( (time_difference % 86400) / 3600 ))
 minutes=$(( (time_difference % 3600) / 60 ))
 
 # Get the running kernel version
-rversion=$(uname -r)
+running_version=$(uname -r)
 
 # Extract major version using regular expression
-if [[ $rversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
-  rversion="${BASH_REMATCH[1]}"
+if [[ $running_version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
+  running_version="${BASH_REMATCH[1]}"
 else
   echo "Invalid version format"
   exit 1
 fi
-echo "Major version: $rversion"
-running_kernel=$(rversion)
+echo "Major version: $running_version"
+running_kernel=$(running_version)
 
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
