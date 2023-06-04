@@ -122,7 +122,7 @@ sleep 5
 installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 
 # Input version string
-version=$(installed_kernel)
+version=$installed_kernel
 echo "Major version: $version"
 sleep 3
 # Extract major version using regular expression
