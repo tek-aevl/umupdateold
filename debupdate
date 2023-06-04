@@ -120,11 +120,11 @@ sleep 5
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 #installed_kernel=$(dpkg -l | grep linux- | awk '{print $2}' | awk -F'-' '{print $4}')
 installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-
 # Input version string
-version=$installed_kernel
+version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 echo "Major version: $version"
 echo "Installed version: $installed_version"
+echo "They should match"
 sleep 3
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
