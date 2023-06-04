@@ -130,9 +130,8 @@ fi
 installed_kernel=$version
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
+sleep 1 
 
-sleep 5 
-echo "l135"
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
@@ -151,7 +150,9 @@ else
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
   echo "uptime seconds: $uptime_seconds"
-  if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
+uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+echo "uptime seconds: $uptime_seconds"
+if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
     days=$(uptime_seconds / 86400)
     hours=$(uptime_seconds % 86400 / 3600)
