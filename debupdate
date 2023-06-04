@@ -112,8 +112,8 @@ echo "Invalid version format"
   exit 1
 fi
 running_kernel=$version
-echo "Major version: $version"
-echo "Running version: $running_kernel"
+echo "Major version:> $version"
+echo "Running version:> $running_kernel"
 sleep 5
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
