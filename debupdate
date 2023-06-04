@@ -148,9 +148,8 @@ else
   echo "The running kernel $running_kernel matches the installed kernel $installed_kernel. No reboot required."
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-  echo "uptime seconds: $uptime_seconds"
-uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-echo "uptime seconds: $uptime_seconds"
+  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+  
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
     days=$(uptime_seconds / 86400)
