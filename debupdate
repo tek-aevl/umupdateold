@@ -105,15 +105,15 @@ echo "get kernels"
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
-echo "Major version: $version"
+echo "Version: $version"
 running_kernel=$version
-echo "running: $running_version $version "
+echo "Running: $running_version $version "
 echo "Invalid version format"
   exit 1
 fi
 running_kernel=$version
-echo "Major version:> $version"
-echo "Running version:> $running_kernel"
+echo "Version:> $version"
+echo "New version:> $running_kernel"
 sleep 5
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
@@ -123,8 +123,8 @@ installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'
 # Input version string
 version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-echo "Major version: $version"
-echo "Installed version: $installed_kernel"
+echo "Installed version: $version"
+echo "Installed version new: $installed_kernel"
 echo "They should match"
 sleep 3
 # Extract major version using regular expression
@@ -135,8 +135,8 @@ else
   exit 1
 fi
 installed_kernel=$version
-echo "Running version: $running_kernel"
-echo "Installed: $installed_kernel"
+echo "Running   version >>: $running_kernel"
+echo "Installed version >>: $installed_kernel"
 echo "They should match again..."
 sleep 5 
 
