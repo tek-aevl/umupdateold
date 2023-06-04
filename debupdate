@@ -110,7 +110,6 @@ echo "Invalid version format"
 fi
 running_kernel=$version
 echo "Set Running kernel version:> $running_kernel"
-sleep 3
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
@@ -121,7 +120,6 @@ version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 echo "Installed version: $version"
 echo "Installed kernel : $installed_kernel"
-sleep 3
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
@@ -132,9 +130,9 @@ fi
 installed_kernel=$version
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
-echo "l135"
-sleep 5 
 
+sleep 5 
+echo "l135"
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
