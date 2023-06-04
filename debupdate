@@ -97,12 +97,9 @@ time_difference=$((current_timestamp - uptime_timestamp))
 days=$((time_difference / 86400))
 hours=$(( (time_difference % 86400) / 3600 ))
 minutes=$(( (time_difference % 3600) / 60 ))
+
 # Get the running kernel version
-running_kernel=$(uname -r)
-
-
-# Input version string
-rversion=$(running_kernel)
+rversion=$(uname -r)
 
 # Extract major version using regular expression
 if [[ $rversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
