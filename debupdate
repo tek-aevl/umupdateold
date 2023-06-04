@@ -100,7 +100,7 @@ minutes=$(( (time_difference % 3600) / 60 ))
 
 # Get the running kernel version
 version=$(uname -r)
-echo "get kernels"
+echo "Running kernel $version"
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
@@ -117,7 +117,7 @@ installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'
 # Input version string
 version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-echo "Installed version: $version"
+echo "Running version  : $running_kernel"
 echo "Installed kernel : $installed_kernel"
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
