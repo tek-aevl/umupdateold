@@ -105,9 +105,6 @@ echo "get kernels"
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
-echo "Version: $version"
-running_kernel=$version
-echo "Running: $running_version $version "
 echo "Invalid version format"
   exit 1
 fi
