@@ -135,8 +135,8 @@ else
   exit 1
 fi
 installed_kernel=$version
-echo "Major version: $version"
-echo "installed: $installed_kernel"
+echo "Running version: $running_kernel"
+echo "Installed: $installed_kernel"
 echo "They should match again..."
 sleep 5 
 
