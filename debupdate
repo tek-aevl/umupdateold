@@ -110,7 +110,7 @@ running_kernel=$(uname -r)
 installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 
 if [[ $running_kernel != $installed_kernel ]]; then
-   uname -r && echo "pick $USER@$HOSTNAME ($HOST_IP)"
+  echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -r
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
   if [[ $choice == [Yy] ]]; then
     echo "Rebooting..."
@@ -122,7 +122,7 @@ if [[ $running_kernel != $installed_kernel ]]; then
     echo " $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
-  echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
+  uname -r && echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
   uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
