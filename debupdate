@@ -148,10 +148,9 @@ if [[ $running_kernel != $installed_kernel ]]; then
 else
   uname -a
   echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
-  echo "l153"
   uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
-echo "l155"
-if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
+  echo "l152"
+  if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "The system has been running for longer than three days."
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
