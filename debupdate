@@ -139,7 +139,6 @@ echo "Major version: $version"
 echo "installed: $installed_kernel"
 echo "They should match again..."
 sleep 5 
-exit 1
 
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
