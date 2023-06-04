@@ -1,4 +1,7 @@
 #!/bin/bash
+## To use this in cli use
+# bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/debupdate)
+
 
 # Get the IP address of the host
 HOST_IP=$(hostname -I | awk '{print $1}')
