@@ -106,7 +106,7 @@ if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
 echo "Major version: $version"
-running_kernel=$(version)  
+running_kernel="$version"  
 echo "running: $version"
 echo "Invalid version format"
   exit 1
