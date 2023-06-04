@@ -109,7 +109,6 @@ echo "Invalid version format"
   exit 1
 fi
 running_kernel=$version
-echo "Set Running kernel version:> $running_kernel"
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
@@ -186,9 +185,9 @@ uptime && sleep 3
     fi
   fi
 fi
-    sleep 2 &&     sleep 2 
+    sleep 4
 echo "inxi $USER@$HOSTNAME ($HOST_IP)"
 inxi
 neofetch
 echo "byah $USER@$HOSTNAME $HOST_IP "
- sleep 2 &&     sleep 2
+ sleep 4
