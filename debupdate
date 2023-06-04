@@ -99,7 +99,7 @@ hours=$(( (time_difference % 86400) / 3600 ))
 minutes=$(( (time_difference % 3600) / 60 ))
 
 # Get the running kernel version
-running_version=$(uname -r)
+version=$(uname -r)
 
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
