@@ -77,13 +77,13 @@ if ! command -v neofetch &> /dev/null; then
 fi
 echo "neofetch passed"
 
-echo " $USER@$HOSTNAME ($HOST_IP)"
+echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
 uptime=$(uptime -s)
-echo " $USER@$HOSTNAME ($HOST_IP)"
+echo "get-time $USER@$HOSTNAME ($HOST_IP)"
 # Get the current timestamp
 current_timestamp=$(date +%s)
-echo " $USER@$HOSTNAME ($HOST_IP)"
+echo "do-math $USER@$HOSTNAME ($HOST_IP)"
 # Get the timestamp of three days ago
 three_days_ago=$(date -d '3 days ago' +%s)
 
@@ -100,7 +100,7 @@ minutes=$(( (time_difference % 3600) / 60 ))
 
 # Get the running kernel version
 version=$(uname -r)
-
+echo "get kernels"
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
@@ -130,7 +130,7 @@ if [[ $iversion =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
 else
 echo "Major version: $iversion"
 installed_kernel=$(iversion)
-  echo "Invalid version format"
+ echo "Invalid version format"
   exit 1
 fi
 echo "Major version: $iversion"
