@@ -18,7 +18,7 @@ sleep 3
 # Display login history
 echo ":~${HOST_IP} last -10"
 last -10
-sleep 2
+sleep 3
 
 # Display information about users currently logged in
 echo ":~${HOST_IP} who -a"
@@ -61,6 +61,22 @@ if ! command -v inxi &> /dev/null; then
   fi
 fi
 
+# Check if inxi command is installed
+if ! command -v neofetch &> /dev/null; then
+  # inxi command is not found, install it
+  echo "Installing neofetch..."
+  if command -v apt &> /dev/null; then
+    sudo apt update
+    sudo apt install -y neofetch
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy neofetch
+  else
+    echo "Unable to install inxi. Please install it manually."
+    exit 1
+  fi
+fi
+
+
 echo " $USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
 uptime=$(uptime -s)
@@ -88,6 +104,7 @@ running_kernel=$(uname -r)
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
 #installed_kernel=$(dpkg -l | grep linux- | awk '{print $2}' | awk -F'-' '{print $4}')
 installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
+
 
 if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
@@ -125,7 +142,8 @@ else
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
     echo "Time difference: $days days, $hours hours, $minutes minutes"
-
+echo "uptime $USER@$HOSTNAME ($HOST_IP)"
+uptime && sleep 3
     # Default to "no" if running for less than three days
     read -p "Do you want to reboot? (y/N): " choice
     if [[ $choice == [Yy] ]]; then
@@ -138,11 +156,8 @@ else
   fi
 fi
     sleep 2 &&     sleep 2 
-echo "uptime $USER@$HOSTNAME ($HOST_IP)"
-uptime 
-echo "who-a $USER@$HOSTNAME ($HOST_IP)"
-who -a
 echo "inxi $USER@$HOSTNAME ($HOST_IP)"
 inxi
+neofetch
 echo "byah $USER@$HOSTNAME $HOST_IP "
  sleep 2 &&     sleep 2
