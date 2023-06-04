@@ -102,15 +102,16 @@ minutes=$(( (time_difference % 3600) / 60 ))
 running_version=$(uname -r)
 
 # Extract major version using regular expression
-if [[ $running_version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
-  running_version="${BASH_REMATCH[1]}"
+if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
+  version="${BASH_REMATCH[1]}"
 else
   echo "Invalid version format"
   exit 1
 fi
-echo "Major version: $running_version"
-running_kernel=$(running_version)
-
+echo "Major version: $version"
+running_kernel=$(version)
+echo "Running version: $running_kernel"
+sleep 5
 # Get the installed kernel version
 #installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
 #installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
