@@ -24,6 +24,10 @@ sleep 1
 echo ":~${HOST_IP} who -a"
 who -a
 sleep 1
+echo "speedtest $HOST_IP"
+speedtest --secure
+inxi
+
 echo " Updating $USER@$HOSTNAME ($HOST_IP) "
 # Upgrade and Update the system
 sudo apt update
