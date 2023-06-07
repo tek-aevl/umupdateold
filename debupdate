@@ -80,6 +80,21 @@ if ! command -v neofetch &> /dev/null; then
   fi
 fi
 echo "neofetch passed"
+# Check if speedtest command is installed
+if ! command -v speedtest &> /dev/null; then
+  # speedtest command is not found, install it
+  echo "Installing speedtest..."
+  if command -v apt &> /dev/null; then
+    sudo apt update
+    sudo apt install -y speedtest-cli
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy speedtest-cli
+  else
+    echo "Unable to install speedtest-cli. Please install it manually."
+    exit 1
+  fi
+fi
+echo "Speedtest Passed"
 
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
