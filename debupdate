@@ -205,9 +205,10 @@ uptime && sleep 3
     fi
   fi
 fi
-    sleep 4
+sleep 3
 echo "inxi $USER@$HOSTNAME ($HOST_IP)"
 inxi
+sleep 3
 neofetch
 echo "byah $USER@$HOSTNAME $HOST_IP "
  sleep 4
