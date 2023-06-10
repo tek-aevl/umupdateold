@@ -178,7 +178,7 @@ if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     minutes=$(uptime_seconds % 3600 / 60)
     echo "Time difference: $days days, $hours hours, $minutes minutes"
     read -p "Do you want to reboot? (Y/n): " choice
-    if [[ $choice == [Yy] ]]; then
+    if [[ $choice != [Nn] ]]; then
       echo "Rebooting... $USER@$HOSTNAME ($HOST_IP)"
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
@@ -189,8 +189,7 @@ if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     echo "So good news! $USER@$HOSTNAME ($HOST_IP)"   
     uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
     uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-    
-    echo "The system has not been running for longer than three days. No reboot required."
+     echo "The system has not been running for longer than three days. No reboot required."
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
