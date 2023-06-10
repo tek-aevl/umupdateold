@@ -186,7 +186,10 @@ if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
       echo "Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)" && sleep 4
     fi
   else
-    echo "So good news! $USER@$HOSTNAME ($HOST_IP)"
+    echo "So good news! $USER@$HOSTNAME ($HOST_IP)"   
+    uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
+    uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+    
     echo "The system has not been running for longer than three days. No reboot required."
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
