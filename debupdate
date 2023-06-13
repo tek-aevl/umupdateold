@@ -4,8 +4,8 @@
 
 # Set the colors
 RED='\033[0;31m'       # Red color
-GREEN='\033[0;32m'     # Green color
 YELLOW='\033[0;33m'    # Yellow color
+GREEN='\033[0;32m'     # Green color
 NC='\033[0m'           # No color
 echo -e "${RED}This text is red.${NC}"
 echo -e "${GREEN}This text is green.${NC}"
