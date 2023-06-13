@@ -104,7 +104,6 @@ if ! command -v speedtest &> /dev/null; then
   fi
 fi
 echo "Speedtest Passed"
-
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 # Get the uptime of the system
 uptime=$(uptime -s)
@@ -147,6 +146,7 @@ version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 echo "Running kernel   : $running_kernel"
 echo "Installed kernel : $installed_kernel"
+
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
