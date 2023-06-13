@@ -165,31 +165,30 @@ if [[ $running_kernel != $installed_kernel ]]; then
     echo " $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
-
-uname -a
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
+uname -a
 sleep 1 
-echo "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. No reboot required."
+echo "The running kernel $running_kernel ${GREEN} matches ${NC} the installed kernel $installed_kernel. No reboot required."
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
-  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+ uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
+ uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
-    echo "${RED}The system has been running for longer than three days.${NC}"
+    echo " ${RED} The system has been running for longer than three days. ${NC} "
      uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
      uptime_seconds=$(printf "%.0f" "$uptime_seconds")
      days=$(uptime_seconds / 86400)
     hours=$(uptime_seconds % 86400 / 3600)
     minutes=$(uptime_seconds % 3600 / 60)
-    echo "${YELLOW}Time difference: $days days, $hours hours, $minutes minutes${NC}"
-    read -p "Do you want to reboot? (Y/n):${RNC} " choice
+    echo " ${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC} "
+    read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice != [Nn] ]]; then
-      echo "${RED}Rebooting... $USER@$HOSTNAME ($HOST_IP)${NC}"
+      echo " ${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC} "
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo "${RED}Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)${NC}" && sleep 4
+      echo " ${RED} Reboot cancelled. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 4
     fi
   else
     echo "So good news! $USER@$HOSTNAME ($HOST_IP)"   
@@ -200,23 +199,23 @@ if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
 
-echo "${GREEN}Time difference: $days days, $hours hours, $minutes minutes ${NC}"
+echo " ${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC} "
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime
 sleep 3
     # Default to "no" if running for less than three days
     read -p "Do you want to reboot? (y/N): " choice
     if [[ $choice == [Yy] ]]; then
-      echo "${RED}Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
+      echo " ${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC} "
           sleep 4 && sudo reboot
     else
-      echo "${YELLOW}Reboot cancelled.${NC}"  &&  sleep 2 
+      echo " ${YELLOW} Reboot cancelled.${NC}"  &&  sleep 2 
     fi
   fi
 fi
-echo "${YELLOW}byah $USER@$HOSTNAME ($HOST_IP)${NC}"
+echo " ${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC} "
 neofetch
 inxi
 uname -a
-echo "${RED}byah $USER@$HOSTNAME $HOST_IP ${NC}"
+echo " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} "
 sleep 4
