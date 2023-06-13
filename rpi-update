@@ -50,11 +50,8 @@ pihole -g
 pihole restartdns
 pihole -up
 echo $USER "@" $HOSTNAME
-  uptime; sleep 3; echo "Resuming!" 
+uptime; sleep 3; echo "Resuming!" 
 speedtest --secure
-
-inxi
-
 echo who -a && last -n 6
 sleep 3
 # Get the installed kernel version
@@ -80,6 +77,8 @@ uptime_timestamp=$(printf "%.0f" $(cut -d' ' -f1 /proc/uptime))
 echo "l8r ! " $USER "@" $HOSTNAME
 neofetch
 echo $USER "@" $HOSTNAME
+uname -a
+inxi
 # Get the uptime of the system
 uptime=$(uptime -s)
 
@@ -103,8 +102,7 @@ if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
   echo "System uptime: $days days, $hours hours, $minutes minutes"
 if [[ $running_kernel != $installed_kernel ]]; then
     read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (Y/n): " choice
-    if [[ $choice != [Nn] ]]; then
-      echo "Rebooting..."
+echo "Rebooting..."
       echo $USER "@" $HOSTNAME
       # Uncomment the following line to perform the reboot
        sudo reboot
@@ -129,5 +127,6 @@ else
     echo "Reboot cancelled."
   fi
 fi
+
 echo $USER "@" $HOSTNAME
 echo "fin ;p  ;-p";
