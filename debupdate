@@ -16,14 +16,14 @@ sleep 4
 HOST_IP=$(hostname -I | awk '{print $1}')
 
 # Display a welcome message
-echo "Welcome $USER@$HOSTNAME ($HOST_IP)"
+echo -e "${GREEN}Welcome $USER@$HOSTNAME ($HOST_IP)"
 sleep 1
 
 # Display system information
 echo ":~${HOST_IP} uname -a"
 uname -a
 sleep 1
-
+${NC}
 # Display login history
 echo ":~${HOST_IP} last -10"
 last -10
