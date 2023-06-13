@@ -137,15 +137,12 @@ echo "Invalid version format"
 fi
 running_kernel=$version
 # Get the installed kernel version
-#installed_kernel=$(rpm -q kernel --last | awk 'NR==1{print $1}')
-#installed_kernel=$(ls /boot/vmlinuz-* | awk -F'-' '{print $2}')
-#installed_kernel=$(dpkg -l | grep linux- | awk '{print $2}' | awk -F'-' '{print $4}')
 installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
 # Input version string
 version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-echo "Running kernel   : $running_kernel"
-echo "Installed kernel : $installed_kernel"
+echo -e "${YELLOW}Running kernel   : $running_kernel ${NC}"
+echo -e "${YELLOW}Installed kernel : $installed_kernel ${NC}"
 
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
@@ -165,60 +162,60 @@ if [[ $running_kernel != $installed_kernel ]]; then
     sleep 3 && sudo reboot
   else
     echo "Reboot cancelled."  &&   sleep 3 
-    echo " $USER@$HOSTNAME ($HOST_IP)"
+    echo "  $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
 uname -a
 sleep 1 
-echo "The running kernel $running_kernel ${GREEN} matches ${NC} the installed kernel $installed_kernel. No reboot required."
+echo -e "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. ${YELLOW}No reboot required.${NC}"
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
-    echo " ${RED} The system has been running for longer than three days. ${NC} "
+    echo -e "${RED} The system has been running for longer than three days. ${NC}"
      uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
      uptime_seconds=$(printf "%.0f" "$uptime_seconds")
      days=$(uptime_seconds / 86400)
     hours=$(uptime_seconds % 86400 / 3600)
     minutes=$(uptime_seconds % 3600 / 60)
-    echo " ${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC} "
+    echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
     read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice != [Nn] ]]; then
-      echo " ${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC} "
+      echo -e "${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo " ${RED} Reboot cancelled. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 4
+      echo -e "${RED} Reboot cancelled. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 4
     fi
   else
-    echo "So good news! $USER@$HOSTNAME ($HOST_IP)"   
+    echo -e "${GREEN} So good news! ${NC} $USER@$HOSTNAME ($HOST_IP)"   
     uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
     uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-     echo "${GREEN}The system has not been running for longer than three days. No reboot required.${NC}"
+     echo -e "${GREEN} The system has not been running for longer than three days. No reboot required. ${NC}"
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
 
-echo " ${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC} "
+echo -e "${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime
 sleep 3
     # Default to "no" if running for less than three days
     read -p "Do you want to reboot? (y/N): " choice
     if [[ $choice == [Yy] ]]; then
-      echo " ${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC} "
+      echo -e "${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
           sleep 4 && sudo reboot
     else
-      echo " ${YELLOW} Reboot cancelled.${NC}"  &&  sleep 2 
+      echo -e "${YELLOW} Reboot cancelled. ${NC}"  &&  sleep 2 
     fi
   fi
 fi
-echo " ${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC} "
+echo -e "${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC}"
 neofetch
 inxi
 uname -a
-echo " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} "
+echo -e " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} "
 sleep 4
