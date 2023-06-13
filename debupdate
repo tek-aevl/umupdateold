@@ -2,6 +2,12 @@
 ## To use this in cli use
 # bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/debupdate)
 
+# Set the colors
+RED='\033[0;31m'       # Red color
+GREEN='\033[0;32m'     # Green color
+YELLOW='\033[0;33m'    # Yellow color
+NC='\033[0m'           # No color
+
 
 # Get the IP address of the host
 HOST_IP=$(hostname -I | awk '{print $1}')
@@ -164,53 +170,53 @@ uname -a
 echo "Running   version >>: $running_kernel"
 echo "Installed version >>: $installed_kernel"
 sleep 1 
-echo "The running kernel $running_kernel matches the installed kernel $installed_kernel. No reboot required."
+echo "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. No reboot required."
   #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
   uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
   uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
-    echo "The system has been running for longer than three days."
+    echo "${RED}The system has been running for longer than three days.${NC}"
      uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
      uptime_seconds=$(printf "%.0f" "$uptime_seconds")
      days=$(uptime_seconds / 86400)
     hours=$(uptime_seconds % 86400 / 3600)
     minutes=$(uptime_seconds % 3600 / 60)
-    echo "Time difference: $days days, $hours hours, $minutes minutes"
-    read -p "Do you want to reboot? (Y/n): " choice
+    echo "${YELLOW}Time difference: $days days, $hours hours, $minutes minutes${NC}"
+    read -p "Do you want to reboot? (Y/n):${RNC} " choice
     if [[ $choice != [Nn] ]]; then
-      echo "Rebooting... $USER@$HOSTNAME ($HOST_IP)"
+      echo "${RED}Rebooting... $USER@$HOSTNAME ($HOST_IP)${NC}"
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo "Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)" && sleep 4
+      echo "${RED}Reboot cancelled. $USER@$HOSTNAME ($HOST_IP)${NC}" && sleep 4
     fi
   else
     echo "So good news! $USER@$HOSTNAME ($HOST_IP)"   
     uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
     uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-     echo "The system has not been running for longer than three days. No reboot required."
+     echo "${GREEN}The system has not been running for longer than three days. No reboot required.${NC}"
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
-    echo "Time difference: $days days, $hours hours, $minutes minutes"
+
+echo "${GREEN}Time difference: $days days, $hours hours, $minutes minutes ${NC}"
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
-uptime && sleep 3
+uptime
+sleep 3
     # Default to "no" if running for less than three days
-    read -p "Do you want to reboot? (y/N): " choice
+    read -p "Do you want to reboot? ${YELLOW}(y/N)${NC}: " choice
     if [[ $choice == [Yy] ]]; then
-      echo "Rebooting... $USER@$HOSTNAME ($HOST_IP)"
-      # Uncomment the following line to perform the reboot
-          sleep 2 && sudo reboot
+      echo "${RED}Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
+          sleep 4 && sudo reboot
     else
-      echo "Reboot cancelled."  &&  sleep 4 
+      echo "${YELLOW}Reboot cancelled.${NC}"  &&  sleep 2 
     fi
   fi
 fi
-sleep 3
-echo "inxi $USER@$HOSTNAME ($HOST_IP)"
-inxi
-sleep 3
+echo "${YELLOW}byah $USER@$HOSTNAME ($HOST_IP)${NC}"
 neofetch
-echo "byah $USER@$HOSTNAME $HOST_IP "
- sleep 4
+inxi
+uname -a
+echo "${RED}byah $USER@$HOSTNAME $HOST_IP ${NC}"
+sleep 4
