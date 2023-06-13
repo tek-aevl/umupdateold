@@ -23,7 +23,7 @@ sleep 1
 echo ":~${HOST_IP} uname -a"
 uname -a
 sleep 1
-${NC}
+echo -e "${NC}"
 # Display login history
 echo ":~${HOST_IP} last -10"
 last -10
