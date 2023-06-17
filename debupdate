@@ -206,15 +206,19 @@ sleep 3
     read -p "Do you want to reboot? (y/N): " choice
     if [[ $choice == [Yy] ]]; then
       echo -e "${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
-          sleep 4 && sudo reboot
+       sleep 4 
+       neofetch
+       inxi  
+       uname -a
+      echo -e " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} " && sleep 3
+       sudo reboot
     else
-      echo -e "${YELLOW} Reboot cancelled. ${NC}"  &&  sleep 2 
+      echo -e "${RED} Reboot Skipped. ${NC}"
     fi
   fi
 fi
-echo -e "${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC}"
 neofetch
 inxi
 uname -a
-echo -e " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} "
+echo -e "${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC}"
 sleep 4
