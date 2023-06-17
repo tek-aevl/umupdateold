@@ -175,13 +175,14 @@ echo -e "The running kernel $running_kernel ${GREEN}matches${NC} the installed k
  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
-    echo -e "${RED} The system has been running for longer than three days. ${NC}"
-     uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-     uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-     days=$(uptime_seconds / 86400)
-    hours=$(uptime_seconds % 86400 / 3600)
-    minutes=$(uptime_seconds % 3600 / 60)
-    echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
+
+  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
+  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+  days=$(uptime_seconds / 86400)
+  hours=$(uptime_seconds % 86400 / 3600)
+  minutes=$(uptime_seconds % 3600 / 60)
+echo -e "${RED} The system has been running for longer than three days. ${NC}"  
+echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
     read -p "Do you want to reboot? (Y/n): " choice
     if [[ $choice != [Nn] ]]; then
       echo -e "${RED} Rebooting... $USER@$HOSTNAME ($HOST_IP) ${NC}"
@@ -191,14 +192,13 @@ if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
       echo -e "${RED} Reboot cancelled. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 4
     fi
   else
-    echo -e "${GREEN} So good news! ${NC} $USER@$HOSTNAME ($HOST_IP)"   
     uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
     uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-     echo -e "${GREEN} The system has not been running for longer than three days. No reboot required. ${NC}"
     days=$((uptime_seconds / 86400))
     hours=$((uptime_seconds % 86400 / 3600))
     minutes=$((uptime_seconds % 3600 / 60))
-
+echo -e "${GREEN} So good news! ${NC} $USER@$HOSTNAME ($HOST_IP)"   
+echo -e "${GREEN} The system has not been running for longer than three days. No reboot required. ${NC}"
 echo -e "${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime
