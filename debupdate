@@ -170,7 +170,6 @@ echo "Installed version >>: $installed_kernel"
 uname -a
 sleep 1 
 echo -e "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. ${YELLOW}No reboot required.${NC}"
-  #uptime_seconds=$(cat /proc/uptime | cut -d ' ' -f 1)
  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
