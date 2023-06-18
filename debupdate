@@ -129,9 +129,13 @@ time_difference=$((current_timestamp - uptime_timestamp))
 uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
 uptime_seconds=$(printf "%.0f" "$uptime_seconds")
 
-days=$(uptime_seconds / 86400)
-hours=$(uptime_seconds % 86400 / 3600)
-minutes=$(uptime_seconds % 3600 / 60)
+#days=$(uptime_seconds / 86400)
+#hours=$(uptime_seconds % 86400 / 3600)
+#minutes=$(uptime_seconds % 3600 / 60)
+days=$(echo "$uptime_seconds / 86400" | bc)
+hours=$(echo "$uptime_seconds % 86400 / 3600" | bc)
+minutes=$(echo "$uptime_seconds % 3600 / 60" | bc)
+
 echo -e "${YELLOW} Current Time variables : $days days, $hours hours, $minutes minutes ${NC}"
 sleep 4
 # Get the running kernel version
