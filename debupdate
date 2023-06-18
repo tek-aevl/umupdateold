@@ -5,6 +5,7 @@ echo "# nano /bin/usr/update
 #!/bin/bash
 bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/debupdate)
 echo 'bye'";
+sleep 4
 # Set the colors
 RED='\033[0;31m'       # Red color
 YELLOW='\033[0;33m'    # Yellow color
