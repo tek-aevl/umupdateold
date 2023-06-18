@@ -108,9 +108,7 @@ if ! command -v speedtest &> /dev/null; then
   fi
 fi
 echo "Speedtest Passed"
-echo "uptime $USER@$HOSTNAME ($HOST_IP)"
-# Get the uptime of the system
-uptime=$(uptime -s)
+
 echo "get-time $USER@$HOSTNAME ($HOST_IP)"
 # Get the current timestamp
 current_timestamp=$(date +%s)
@@ -118,6 +116,9 @@ echo "do-math $USER@$HOSTNAME ($HOST_IP)"
 # Get the timestamp of three days ago
 three_days_ago=$(date -d '3 days ago' +%s)
 
+# Get the uptime of the system
+echo "uptime $USER@$HOSTNAME ($HOST_IP)"
+uptime=$(uptime -s)
 # Convert uptime to timestamp
 uptime_timestamp=$(date -d "$uptime" +%s)
 
@@ -125,13 +126,13 @@ uptime_timestamp=$(date -d "$uptime" +%s)
 time_difference=$((current_timestamp - uptime_timestamp))
 
 # Convert time difference to days, hours, and minutes
-  
+ 
 uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
 uptime_seconds=$(printf "%.0f" "$uptime_seconds")
 
-#days=$(uptime_seconds / 86400)
-#hours=$(uptime_seconds % 86400 / 3600)
-#minutes=$(uptime_seconds % 3600 / 60)
+days=$(uptime_seconds / 86400)
+hours=$(uptime_seconds % 86400 / 3600)
+minutes=$(uptime_seconds % 3600 / 60)
 days=$(echo "$uptime_seconds / 86400" | bc)
 hours=$(echo "$uptime_seconds % 86400 / 3600" | bc)
 minutes=$(echo "$uptime_seconds % 3600 / 60" | bc)
