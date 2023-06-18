@@ -164,8 +164,8 @@ echo -e "${YELLOW}Installed kernel : $installed_kernel ${NC}"
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
-  echo "Invalid version format"
-  exit 1
+  echo "Invalid version format, is this linux real?"
+  echo "Skipping"
 fi
 installed_kernel=$version
 if [[ $running_kernel != $installed_kernel ]]; then
