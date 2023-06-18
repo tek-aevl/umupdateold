@@ -121,9 +121,11 @@ uptime_timestamp=$(date -d "$uptime" +%s)
 time_difference=$((current_timestamp - uptime_timestamp))
 
 # Convert time difference to days, hours, and minutes
-days=$((time_difference / 86400))
-hours=$(( (time_difference % 86400) / 3600 ))
-minutes=$(( (time_difference % 3600) / 60 ))
+  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
+  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
+  days=$(uptime_seconds / 86400)
+  hours=$(uptime_seconds % 86400 / 3600)
+  minutes=$(uptime_seconds % 3600 / 60)
 
 # Get the running kernel version
 version=$(uname -r)
@@ -170,16 +172,9 @@ echo "Installed version >>: $installed_kernel"
 uname -a
 sleep 1 
 echo -e "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. ${YELLOW}No reboot required.${NC}"
- uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
- uptime_seconds=$(printf "%.0f" "$uptime_seconds")
   
 if [[ $uptime_seconds -ge $((3 * 24 * 3600)) ]]; then
 
-  uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-  uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-  days=$(uptime_seconds / 86400)
-  hours=$(uptime_seconds % 86400 / 3600)
-  minutes=$(uptime_seconds % 3600 / 60)
 echo -e "${RED} The system has been running for longer than three days. ${NC}"  
 echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
     read -p "Do you want to reboot? (Y/n): " choice
@@ -188,14 +183,10 @@ echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes $
       # Uncomment the following line to perform the reboot
           sleep 2 && sudo reboot
     else
-      echo -e "${RED} Reboot cancelled. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 4
+      echo -e "${RED} Reboot skipped. $USER@$HOSTNAME ($HOST_IP) ${NC} " && sleep 3
     fi
   else
-    uptime_seconds=$(cut -d' ' -f1 /proc/uptime)
-    uptime_seconds=$(printf "%.0f" "$uptime_seconds")
-    days=$((uptime_seconds / 86400))
-    hours=$((uptime_seconds % 86400 / 3600))
-    minutes=$((uptime_seconds % 3600 / 60))
+
 echo -e "${GREEN} So good news! ${NC} $USER@$HOSTNAME ($HOST_IP)"   
 echo -e "${GREEN} The system has not been running for longer than three days. No reboot required. ${NC}"
 echo -e "${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
@@ -213,7 +204,7 @@ sleep 3
       echo -e " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} " && sleep 3
        sudo reboot
     else
-      echo -e "${RED} Reboot Skipped. ${NC}"
+      echo -e "${YELLOW} Reboot Skipped. ${NC}"
     fi
   fi
 fi
