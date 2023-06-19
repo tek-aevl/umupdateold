@@ -1,4 +1,13 @@
 #!/bin/bash
+echo "## To use this in cli use"
+echo "sudo nano /bin/usr/update
+# copy the next 3 lines into it with, and chmod it to 755  
+#!/bin/bash
+bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/rpi-update)
+echo 'bye';";
+echo "#To use run"
+echo "bash update"
+sleep 4
 echo "Welcome " $USER "@" $HOSTNAME
 sudo apt install inxi speedtest-cli neofetch curl
 sudo apt update && sudo apt upgrade -y && sudo apt autoremove
