@@ -237,8 +237,8 @@ sleep 3
 fi
 echo -e "${YELLOW}speedtest $HOST_IP${NC}"
 speedtest --secure
-inxi
-neofetch
 uname -a
+neofetch
+inxi
 echo -e "${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC}"
 sleep 6
