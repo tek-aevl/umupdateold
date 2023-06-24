@@ -61,7 +61,7 @@ if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
  sudo systemctl start pihole-FTL
  # Output reduced pihole db size
  sudo du -h /etc/pihole/pihole-FTL.db -h
-
+sleep 8
 else
   echo -e "The system has ${RED}not${NC} been running for longer than three days. ${GREEN}No pihole log operations required.${NC}"
   echo -e "${GREEN}System uptime: $days days, $hours hours, $minutes minutes ${NC}" 
