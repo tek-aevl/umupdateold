@@ -202,7 +202,7 @@ echo -e "${YELLOW} Time difference: $days days, $hours hours, $minutes minutes $
   else
 
 echo -e "${GREEN} So good news! ${NC} $USER@$HOSTNAME ($HOST_IP)"   
-echo -e "${GREEN} The system has not been running for longer than three days. No reboot required. ${NC}"
+echo -e " The system has ${GREEN}not${NC} been running for longer than ${YELLOW}three${NC} days. ${RED}No reboot required. ${NC}"
 echo -e "${GREEN} Time difference: $days days, $hours hours, $minutes minutes ${NC}"
 echo "uptime $USER@$HOSTNAME ($HOST_IP)"
 uptime
