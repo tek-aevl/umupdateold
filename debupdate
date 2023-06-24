@@ -63,7 +63,7 @@ if ! command -v curl &> /dev/null; then
     exit 1
   fi
 fi
-echo "curl passed"
+echo -e "${GREEN}curl passed${NC}"
 
 # Check if inxi command is installed
 if ! command -v inxi &> /dev/null; then
@@ -79,7 +79,7 @@ if ! command -v inxi &> /dev/null; then
     exit 1
   fi
 fi
-echo "inxi passed"
+echo "${GREEN}inxi passed${NC}"
 # Check if neofetch command is installed
 if ! command -v neofetch &> /dev/null; then
   # inxi command is not found, install it
@@ -94,7 +94,7 @@ if ! command -v neofetch &> /dev/null; then
     exit 1
   fi
 fi
-echo "neofetch passed"
+echo "${GREEN}neofetch passed${NC}"
 # Check if speedtest command is installed
 if ! command -v speedtest &> /dev/null; then
   # speedtest command is not found, install it
@@ -109,7 +109,7 @@ if ! command -v speedtest &> /dev/null; then
     exit 1
   fi
 fi
-echo "Speedtest Passed"
+echo -e "${GREEN}Speedtest Passed${NC}"
 
 echo "get-time $USER@$HOSTNAME ($HOST_IP)"
 # Get the current timestamp
@@ -165,7 +165,7 @@ if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
   echo "Invalid version format, is this linux real?"
-  echo "Skipping"
+  echo "${GREEN}Skipping${NC}"
 fi
 installed_kernel=$version
 if [[ $running_kernel != $installed_kernel ]]; then
@@ -177,7 +177,8 @@ if [[ $running_kernel != $installed_kernel ]]; then
     # Uncomment the following line to perform the reboot
     sleep 3 && sudo reboot
   else
-    echo "Reboot cancelled."  &&   sleep 3 
+    echo -e "${RED}Reboot denied.${NC}"  
+     sleep 3 
     echo "  $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
