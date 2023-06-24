@@ -57,10 +57,9 @@ if ! command -v curl &> /dev/null; then
     sudo pacman -Sy curl
   else
     echo "Unable to install curl. Please install it manually."
-    exit 1
-  fi
+ fi
 fi
-echo -e "${GREEN}curl passed${NC}"
+echo -e "${GREEN}curl Passed${NC}"
 
 # Check if inxi command is installed
 if ! command -v inxi &> /dev/null; then
@@ -73,10 +72,9 @@ if ! command -v inxi &> /dev/null; then
     sudo pacman -Sy inxi
   else
     echo "Unable to install inxi. Please install it manually."
-    exit 1
   fi
 fi
-echo -e "${GREEN}inxi passed${NC}"
+echo -e "${GREEN}inxi Passed${NC}"
 
 # Check if neofetch command is installed
 if ! command -v neofetch &> /dev/null; then
@@ -89,10 +87,9 @@ if ! command -v neofetch &> /dev/null; then
     sudo pacman -Sy neofetch
   else
     echo "Unable to install inxi. Please install it manually."
-    exit 1
-  fi
+ fi
 fi
-echo -e "${GREEN}neofetch passed${NC}"
+echo -e "${GREEN}neofetch Passed${NC}"
 
 # Check if speedtest command is installed
 if ! command -v speedtest &> /dev/null; then
@@ -105,10 +102,9 @@ if ! command -v speedtest &> /dev/null; then
     sudo pacman -Sy speedtest-cli
   else
     echo "Unable to install speedtest-cli. Please install it manually."
-    exit 1
   fi
 fi
-echo -e "${GREEN}Speedtest Passed${NC}"
+echo -e "${GREEN}speedtest Passed${NC}"
 
 echo "get-time $USER@$HOSTNAME ($HOST_IP)"
 # Get the current timestamp
@@ -145,10 +141,11 @@ version=$(uname -r)
 echo "Running kernel $version"
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
-  version="${BASH_REMATCH[1]}"
-else
-echo "Invalid version format"
-  exit 1
+    version="${BASH_REMATCH[1]}"
+   else
+  echo -e "${RED} Warning!!!${NC}"
+  echo -e "${RED}Invalid version format${NC}"
+sleep 10
 fi
 running_kernel=$version
 # Get the installed kernel version
