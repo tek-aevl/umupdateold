@@ -183,7 +183,7 @@ if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
   if [[ $choice == [Yy] ]]; then
-    echo -e "{RED}Rebooting...{NC}"
+    echo -e "${RED}Rebooting...{NC}"
        echo -e "L8r $USER@$HOSTNAME ($HOST_IP)"
     # Uncomment the following line to perform the reboot
     sleep 3 
