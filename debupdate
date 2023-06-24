@@ -240,8 +240,8 @@ echo -e "${YELLOW}speedtest $HOST_IP${NC}"
 echo -e "${GREEN}"
 speedtest --secure
 echo -e "${NC}"
-uname -a
 neofetch
 inxi
+uname -a
 echo -e "${GREEN} Byah.!. $USER@$HOSTNAME ($HOST_IP) ${NC}"
 sleep 6
