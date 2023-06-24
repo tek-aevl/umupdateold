@@ -7,10 +7,24 @@ bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/rpi-upda
 echo 'bye';";
 echo "#To use run"
 echo "bash update"
+sleep 4# Set the colors
+RED='\033[0;31m'       # Red color
+YELLOW='\033[0;33m'    # Yellow color
+GREEN='\033[0;32m'     # Green color
+NC='\033[0m'           # No color
+echo -e "This ${RED}text${NC} is ${RED}red.${NC}"
+echo -e "This ${YELLOW}text${NC} is ${YELLOW}yellow.${NC}"
+echo -e "This ${GREEN}text${NC} is ${GREEN}green.${NC}"
 sleep 4
-echo "Welcome " $USER "@" $HOSTNAME
+
+
+
+echo "Welcome " $USER "@" $HOSTNAME "${YELLOW}"
 sudo apt install inxi speedtest-cli neofetch curl
-sudo apt update && sudo apt upgrade -y && sudo apt autoremove
+sudo apt update 
+sudo apt upgrade -y 
+sudo apt autoremove
+echo "${NC}"
 # Get the uptime of the system
 uptime=$(uptime -s)
 
