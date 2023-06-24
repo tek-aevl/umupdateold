@@ -39,9 +39,6 @@ sleep 1
 echo ":~${HOST_IP} who -a"
 who -a
 sleep 1
-echo "speedtest $HOST_IP"
-speedtest --secure
-inxi
 
 echo " Updating $USER@$HOSTNAME ($HOST_IP) "
 # Upgrade and Update the system
@@ -79,7 +76,8 @@ if ! command -v inxi &> /dev/null; then
     exit 1
   fi
 fi
-echo "${GREEN}inxi passed${NC}"
+echo -e "${GREEN}inxi passed${NC}"
+
 # Check if neofetch command is installed
 if ! command -v neofetch &> /dev/null; then
   # inxi command is not found, install it
@@ -94,7 +92,8 @@ if ! command -v neofetch &> /dev/null; then
     exit 1
   fi
 fi
-echo "${GREEN}neofetch passed${NC}"
+echo -e "${GREEN}neofetch passed${NC}"
+
 # Check if speedtest command is installed
 if ! command -v speedtest &> /dev/null; then
   # speedtest command is not found, install it
@@ -172,10 +171,11 @@ if [[ $running_kernel != $installed_kernel ]]; then
   echo "pick $USER@$HOSTNAME ($HOST_IP)" &&  uname -a
   read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (y/N): " choice
   if [[ $choice == [Yy] ]]; then
-    echo "Rebooting..."
-       echo "L8r $USER@$HOSTNAME ($HOST_IP)"
+    echo -e "{RED}Rebooting...{NC}"
+       echo -e "L8r $USER@$HOSTNAME ($HOST_IP)"
     # Uncomment the following line to perform the reboot
-    sleep 3 && sudo reboot
+    sleep 3 
+      sudo reboot
   else
     echo -e "${RED}Reboot denied.${NC}"  
      sleep 3 
@@ -223,8 +223,10 @@ sleep 3
     fi
   fi
 fi
-neofetch
+echo -e "${YELLOW}speedtest $HOST_IP${NC}"
+speedtest --secure
 inxi
+neofetch
 uname -a
 echo -e "${YELLOW} byah $USER@$HOSTNAME ($HOST_IP) ${NC}"
-sleep 4
+sleep 6
