@@ -7,7 +7,8 @@ bash <(curl -s https://raw.githubusercontent.com/tek-aevl/umupdate/main/rpi-upda
 echo 'bye';";
 echo "#To use run"
 echo "bash update"
-sleep 4# Set the colors
+sleep 4
+# Set the colors
 RED='\033[0;31m'       # Red color
 YELLOW='\033[0;33m'    # Yellow color
 GREEN='\033[0;32m'     # Green color
