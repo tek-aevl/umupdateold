@@ -19,12 +19,12 @@ sleep 4
 
 
 
-echo "Welcome " $USER "@" $HOSTNAME "${YELLOW}"
+echo -e "Welcome " $USER "@" $HOSTNAME "${YELLOW}"
 sudo apt install inxi speedtest-cli neofetch curl
 sudo apt update 
 sudo apt upgrade -y 
 sudo apt autoremove
-echo "${NC}"
+echo -e "${NC}"
 # Get the uptime of the system
 uptime=$(uptime -s)
 
@@ -62,18 +62,19 @@ if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
  sudo du -h /etc/pihole/pihole-FTL.db -h
 
 else
-  echo "The system has not been running for longer than three days. No pihole log operations required."
-  echo "System uptime: $days days, $hours hours, $minutes minutes"
+  echo -e "The system has ${RED}not${NC} been running for longer than three days. ${GREEN}No pihole log operations required.${NC}"
+  echo -e "${GREEN}System uptime: $days days, $hours hours, $minutes minutes ${NC}" 
 fi
 
-
+echo -e "Pihole Updates!"
 pihole arpflush
 pihole restartdns
 pihole -g
 pihole restartdns
 pihole -up
 echo $USER "@" $HOSTNAME
-uptime; sleep 3; echo "Resuming!" 
+uptime; sleep 3; echo -e "${YELLOW}Resuming!${NC}" 
+
 speedtest --secure
 echo who -a && last -n 6
 sleep 3
@@ -97,11 +98,11 @@ sleep 5
 # Get the system uptime in seconds
 uptime_timestamp=$(printf "%.0f" $(cut -d' ' -f1 /proc/uptime))
 
-echo "l8r ! " $USER "@" $HOSTNAME
-neofetch
-echo $USER "@" $HOSTNAME
 uname -a
+echo -e "${YELLOW}l8r ! " $USER "@" $HOSTNAME "${NC}"
+neofetch
 inxi
+sleep 3
 # Get the uptime of the system
 uptime=$(uptime -s)
 
@@ -121,36 +122,37 @@ minutes=$(( (time_difference % 3600) / 60 ))
 
 # Check if the system has been running for longer than three days
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
-  echo "The system has been running for longer than three days."
-  echo "System uptime: $days days, $hours hours, $minutes minutes"
+  echo -e "${RED} WARNING! ${YELLOW}The system has been running for longer than three days.${NC}"
+  echo -e "${RED}System uptime: $days days, $hours hours, $minutes minutes ${NC}"
 if [[ $running_kernel != $installed_kernel ]]; then
     read -p "The running kernel ($running_kernel) differs from the installed kernel ($installed_kernel). Do you want to reboot? (Y/n): " choice
 if [[ $choice != [Nn] ]]; then
-    echo "Rebooting..."
+    echo -e "${RED}Rebooting...${NC}"
       echo $USER "@" $HOSTNAME
       # Uncomment the following line to perform the reboot
        sudo reboot
     else
-      echo "Reboot cancelled."
+      echo -e "${RED}Reboot denied.${NC}"
     fi
   else
-    echo "The running kernel ($running_kernel) matches the installed kernel ($installed_kernel). No reboot required."
+    echo -e "The running kernel ($running_kernel) ${GREEN}matches${NC} the installed kernel ($installed_kernel). ${GREEN}No reboot required.${NC}"
   fi
 else
-  echo "The system has not been running for longer than three days. No reboot required."
-  echo "System uptime: $days days, $hours hours, $minutes minutes"
+  echo -e "The system has ${GREEN}not${NC} been running for longer than ${YELLOW}three${NC} days. ${GREEN}No reboot required.${NC}"
+  echo -e "${GREEN}System uptime: $days days, $hours hours, $minutes minutes${NC}"
 
 # Default to "no" if running for less than three days
   read -p "Do you want to reboot? (y/N): " choice
   if [[ $choice == [Yy] ]]; then
-    echo "Rebooting..."
+    echo -e "${RED}Rebooting...${NC}"
     echo $USER "@" $HOSTNAME
     # Uncomment the following line to perform the reboot
      sudo reboot
   else
-    echo "Reboot cancelled."
+    echo -e "${YELLOW}Reboot skipped${NC}."
   fi
 fi
 
 echo $USER "@" $HOSTNAME
-echo "fin ;p  ;-p";
+inxi
+echo -e "${GREEN}fin ;p  ;-p ${NC}";
