@@ -44,8 +44,8 @@ minutes=$(( (time_difference % 3600) / 60 ))
 
 # Check if the system has been running for longer than three days
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
- echo "The system has been running for longer than three days."
- echo "Flushing Logs"
+ echo -e "${RED}The system has been running for longer than three days."
+ echo -e "Flushing Logs${NC}"
  # output current pihole db size
  sudo du -h /etc/pihole/pihole-FTL.db -h
  # flush pihole logs
