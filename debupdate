@@ -46,6 +46,21 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt autoremove
 
+# Check if bc command is installed
+if ! command -v bc &> /dev/null; then
+  # curl command is not found, install it
+  echo "Installing curl..."
+  if command -v apt &> /dev/null; then
+    sudo apt update
+    sudo apt install -y bc
+  elif command -v pacman &> /dev/null; then
+    sudo pacman -Sy bc
+  else
+    echo "Unable to install bc. Please install it manually."
+ fi
+fi
+echo -e "${GREEN}bc Passed${NC}"
+
 # Check if curl command is installed
 if ! command -v curl &> /dev/null; then
   # curl command is not found, install it
