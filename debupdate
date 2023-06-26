@@ -232,7 +232,7 @@ sleep 3
       echo -e " ${RED} byah $USER@$HOSTNAME $HOST_IP ${NC} " && sleep 3
        sudo reboot
     else
-      echo -e "${YELLOW} Reboot Skipped. ${NC}"
+      echo -e "${GREEN} Reboot Skipped. $USER@$HOSTNAME ($HOST_IP) ${NC}"
     fi
   fi
 fi
