@@ -1,4 +1,4 @@
-#!/bin/bash
+o#!/bin/bash
 echo "## To use this in cli use"
 echo "sudo nano /bin/usr/update
 # copy the next 3 lines into it with, and chmod it to 755  
@@ -45,20 +45,25 @@ minutes=$(( (time_difference % 3600) / 60 ))
 if [[ $time_difference -ge $((3 * 24 * 3600)) ]]; then
  echo -e "${RED}The system has been running for longer than three days."
  echo -e "Flushing Logs${NC}"
- # output current pihole db size
+ echo "# output current pihole db size"
  sudo du -h /etc/pihole/pihole-FTL.db -h
- # flush pihole logs
+ echo "# flush pihole logs"
  pihole flush
- # Output pihole db size
+ echo "# Output pihole db size"
  sudo du -h /etc/pihole/pihole-FTL.db -h
- # Stop pihole FTL service
+ sudo rm /etc/pihole/pihole-FTL.db-old.db 
+sleep 3
+ echo "# Stop pihole FTL service"
  sudo systemctl stop pihole-FTL
- # Delete the FTL database file
- sudo rm /etc/pihole/pihole-FTL.db
- # Start pihole FTL service
+ echo "# Delete the FTL database file"
+ sudo service pihole-FTL stop
+ sudo mv /etc/pihole/pihole-FTL.db /etc/pihole/pihole-FTL-old.db
+ sudo service pihole-FTL start
+ echo "# Start pihole FTL service"
  sudo systemctl start pihole-FTL
- # Output reduced pihole db size
+ echo "# Output reduced pihole db size"
  sudo du -h /etc/pihole/pihole-FTL.db -h
+ sudo du -h /etc/pihole/pihole-FTL-old.db
 sleep 8
 else
   echo -e "The system has ${RED}not${NC} been running for longer than three days. ${GREEN}No pihole log operations required.${NC}"
@@ -71,9 +76,9 @@ pihole restartdns
 pihole -g
 pihole restartdns
 pihole -up
-echo $USER "@" $HOSTNAME
 uptime; sleep 3; echo -e "${YELLOW}Resuming!${NC}" 
 
+echo $USER "@" $HOSTNAME "speedtest"
 speedtest --secure
 echo who -a && last -n 6
 sleep 3
