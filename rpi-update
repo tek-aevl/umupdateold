@@ -46,8 +46,8 @@ echo -e "${RED}Reset logs anyway?{NC}"
 read -e -i "no" -p "Force log reset? (yes/no): " force_log_reset
 
 if [[ $time_difference -ge $((3 * 24 * 3600)) || $force_log_reset == "yes" ]]; then
- echo -e "${RED}The system has been running for longer than three days."
- echo -e "Flushing Logs${NC}"
+ echo -e "${RED}The system has been running for longer than three days.${NC}"
+ echo -e "${YELLOW}Flushing Logs${NC}"
  echo "# output current pihole db size"
  sudo du -h /etc/pihole/pihole-FTL.db -h
  echo "# flush pihole logs"
