@@ -10,8 +10,18 @@ echo "bash update"
 sleep 4
 # Set the colors
 RED='\033[0;31m'       # Red color
+LIGHT_RED='\033[0;91m'    # Light red color
 YELLOW='\033[0;33m'    # Yellow color
+LIGHT_YELLOW='\033[0;93m' # Light yellow color
 GREEN='\033[0;32m'     # Green color
+LIGHT_GREEN='\033[0;92m'  # Light green color
+BLUE='\033[0;34m'         # Blue color
+LIGHT_BLUE='\033[0;94m'   # Light blue color
+MAGENTA='\033[0;35m'      # Magenta color
+CYAN='\033[0;36m'         # Cyan color
+WHITE='\033[0;37m'        # White color
+LIGHT_GRAY='\033[0;90m'   # Light gray color
+DARK_GRAY='\033[0;30m'    # Dark gray color
 NC='\033[0m'           # No color
 echo -e "This ${RED}text${NC} is ${RED}red.${NC}"
 echo -e "This ${YELLOW}text${NC} is ${YELLOW}yellow.${NC}"
