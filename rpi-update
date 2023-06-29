@@ -18,7 +18,7 @@ echo -e "This ${YELLOW}text${NC} is ${YELLOW}yellow.${NC}"
 echo -e "This ${GREEN}text${NC} is ${GREEN}green.${NC}"
 sleep 4
 
-echo -e "Welcome " $USER "@" $HOSTNAME "${YELLOW}"
+echo -e "Welcome " $USER "@" $HOSTNAME "${GREEN}"
 sudo apt install inxi speedtest-cli neofetch curl
 sudo apt update 
 sudo apt upgrade -y 
@@ -73,7 +73,7 @@ else
   echo -e "${GREEN}System uptime: $days days, $hours hours, $minutes minutes ${NC}" 
 fi
 
-echo -e "${YELLOW}Pihole Updates!${NC}"
+echo -e "${GREEN}Pihole Updates!${NC}"
 pihole arpflush
 pihole restartdns
 pihole -g
