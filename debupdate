@@ -178,15 +178,15 @@ installed_kernel=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'
 # Input version string
 version=""
 version=$(dpkg --list | grep "linux-image" | awk '{print $3}' | awk -F'-' '{print $1}' | sort -V | tail -n1)
-echo -e "${YELLOW}Running kernel   : $running_kernel ${NC}"
-echo -e "${YELLOW}Installed kernel : $installed_kernel ${NC}"
+echo -e "${YELLOW}Running kernel   ${BLUE}: $running_kernel ${NC}"
+echo -e "${YELLOW}Installed kernel ${BLUE}: $installed_kernel ${NC}"
 
 # Extract major version using regular expression
 if [[ $version =~ ^([0-9]+\.[0-9]+\.[0-9]+).* ]]; then
   version="${BASH_REMATCH[1]}"
 else
   echo -e "${RED}Invalid version format, is this linux real?${NC}"
-  echo -e "${YELLOW}Skipping${NC}"
+  echo -e "${LIGHT_RED}Skipping${NC}"
 fi
 installed_kernel=$version
 if [[ $running_kernel != $installed_kernel ]]; then
@@ -199,7 +199,7 @@ if [[ $running_kernel != $installed_kernel ]]; then
     sleep 3 
       sudo reboot
   else
-    echo -e "${YELLOW}Reboot denied.${NC}"  
+    echo -e "${LIGHT_RED}Reboot denied.${NC}"  
      sleep 3 
     echo "  $USER@$HOSTNAME ($HOST_IP)"
   fi
