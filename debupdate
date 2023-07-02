@@ -247,7 +247,7 @@ sleep 3
   fi
 fi
 echo -e "${YELLOW}speedtest $HOST_IP${NC}"
-echo -e "${GREEN}"
+echo -e "${blue}"
 speedtest --secure
 echo -e "${NC}"
 neofetch
