@@ -204,8 +204,8 @@ if [[ $running_kernel != $installed_kernel ]]; then
     echo "  $USER@$HOSTNAME ($HOST_IP)"
   fi
 else
-echo "Running   version >>: $running_kernel"
-echo "Installed version >>: $installed_kernel"
+echo -e "${GREEN}Running   version >>: $running_kernel ${NC}"
+echo -e "${BLUE}Installed version >>: $installed_kernel ${NC}"
 uname -a
 sleep 1 
 echo -e "The running kernel $running_kernel ${GREEN}matches${NC} the installed kernel $installed_kernel. ${YELLOW}No reboot required.${NC}"
@@ -247,7 +247,7 @@ sleep 3
   fi
 fi
 echo -e "${YELLOW}speedtest $HOST_IP${NC}"
-echo -e "${blue}"
+echo -e "${BLUE}"
 speedtest --secure
 echo -e "${NC}"
 neofetch
