@@ -4,6 +4,7 @@ echo "#To use this run it with
 curl -sSL https://git.aevl.net/tek/umupdate/raw/branch/main/friendica-update | bash
 "
 sleep 3
+bash <(curl -s https://git.aevl.net/tek/umupdate/raw/branch/main/friendica-update)
 bin/console maintenance 1 "We will be right back!"
 cp -r /var/www/html/friendica /var/www/html/friendica_backup
 cd /var/www/html/friendica
